@@ -2,6 +2,8 @@
 
 Este documento orienta agentes de IA e desenvolvedores no projeto **Hotel Servilha** (sistema full stack de reservas de hotel, voltado exclusivamente para clientes).
 
+Observação: Todas as documentações e artefatos deste projeto serão escritos em português.
+
 ## 1. Stack Tecnológica e Versões
 
 - **Front-end**:
