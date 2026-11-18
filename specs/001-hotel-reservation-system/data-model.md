@@ -82,6 +82,12 @@ Regras:
 - Unique(email), Unique(cpf), Unique(reserva.codigo), Unique(avaliacao reservaId+usuarioId)
 - Índices em Quarto.precoPorNoite, Quarto.categoria para filtros
 
+Formatação para apresentação (pt-BR)
+
+- Campos monetários (precoPorNoite, diaria, valorTotal, Pagamento.valor) devem ser armazenados como números/decimal no back-end e apresentados no frontend usando o formato pt-BR: separador de milhares '.' e separador decimal ','; ex.: 1234.56 -> "1.234,56". Recomenda-se usar Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }) no frontend para exibição (mostrar 'R$ 1.234,56').
+- Datas (dataNascimento, dataInicio, dataFim, createdAt/updatedAt) devem ser trocadas entre cliente e servidor em ISO 8601 (yyyy-mm-dd / ISO datetime) para interoperabilidade, mas exibidas ao usuário no formato pt-BR dd/MM/yyyy.
+- CPF deve ser validado/armazenado no backend como apenas dígitos (ex: 01234567890) e apresentado no frontend com máscara '000.000.000-00'.
+
 Transições de estado (Reserva)
 - PENDING -> CONFIRMED (ao pagamento bem-sucedido ou confirmação manual)
 - PENDING -> CANCELLED (cancelamento pelo usuário antes do check-in)
