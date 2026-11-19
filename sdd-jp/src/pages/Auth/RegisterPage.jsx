@@ -1,12 +1,18 @@
 import { useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import Alert from '../../components/atoms/Alert/Alert.jsx'
 import Button from '../../components/atoms/Button/Button.jsx'
 import FormField from '../../components/atoms/FormField/FormField.jsx'
 import { useAuth } from '../../hooks/useAuth.js'
+import {
+  ATRIBUTOS_TELEFONE,
+  MENSAGEM_TELEFONE,
+  formatarTelefone,
+  telefoneValido,
+} from '../../utils/telefone.js'
 import styles from './AuthPages.module.css'
 
 const esquema = z
@@ -14,7 +20,7 @@ const esquema = z
     nome: z.string().trim().min(3, 'Informe o nome completo.'),
     cpf: z.string().trim().regex(/^\d{3}\.?\d{3}\.?\d{3}-?\d{2}$/, 'Informe um CPF válido.'),
     email: z.string().trim().email('Informe um e-mail válido.'),
-    telefone: z.string().trim().min(10, 'Informe um telefone com DDD.'),
+    telefone: z.string().refine(telefoneValido, MENSAGEM_TELEFONE),
     dataNascimento: z.string().min(1, 'Informe a data de nascimento.'),
     senha: z
       .string()
@@ -47,6 +53,7 @@ function RegisterPage() {
   const [enviando, setEnviando] = useState(false)
   const {
     register,
+    control,
     handleSubmit,
     watch,
     formState: { errors },
@@ -123,13 +130,21 @@ function RegisterPage() {
           {...register('email')}
         />
 
-        <FormField
-          id="cadastro-telefone"
-          label="Telefone"
-          autoComplete="tel"
-          placeholder="(11) 90000-0000"
-          error={errors.telefone?.message}
-          {...register('telefone')}
+        <Controller
+          control={control}
+          name="telefone"
+          render={({ field }) => (
+            <FormField
+              id="cadastro-telefone"
+              label="Telefone"
+              {...ATRIBUTOS_TELEFONE}
+              value={field.value}
+              onBlur={field.onBlur}
+              name={field.name}
+              error={errors.telefone?.message}
+              onChange={(evento) => field.onChange(formatarTelefone(evento.target.value))}
+            />
+          )}
         />
 
         <div className={styles.senha}>

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import Alert from '../../components/atoms/Alert/Alert.jsx'
@@ -8,11 +8,17 @@ import FormField from '../../components/atoms/FormField/FormField.jsx'
 import { useAuth } from '../../hooks/useAuth.js'
 import { alterarSenha } from '../../services/authService.js'
 import { formatarData } from '../../utils/date.js'
+import {
+  ATRIBUTOS_TELEFONE,
+  MENSAGEM_TELEFONE,
+  formatarTelefone,
+  telefoneValido,
+} from '../../utils/telefone.js'
 import styles from './AccountPages.module.css'
 
 const esquemaPerfil = z.object({
   nome: z.string().trim().min(3, 'Informe o nome completo.'),
-  telefone: z.string().trim().min(10, 'Informe um telefone com DDD.'),
+  telefone: z.string().refine(telefoneValido, MENSAGEM_TELEFONE),
   dataNascimento: z.string().min(1, 'Informe a data de nascimento.'),
 })
 
@@ -39,7 +45,7 @@ function AccountProfile() {
     resolver: zodResolver(esquemaPerfil),
     defaultValues: {
       nome: usuario.nome,
-      telefone: usuario.telefone ?? '',
+      telefone: formatarTelefone(usuario.telefone ?? ''),
       dataNascimento: usuario.dataNascimento ?? '',
     },
   })
@@ -92,11 +98,21 @@ function AccountProfile() {
               error={perfil.formState.errors.nome?.message}
               {...perfil.register('nome')}
             />
-            <FormField
-              id="perfil-telefone"
-              label="Telefone"
-              error={perfil.formState.errors.telefone?.message}
-              {...perfil.register('telefone')}
+            <Controller
+              control={perfil.control}
+              name="telefone"
+              render={({ field }) => (
+                <FormField
+                  id="perfil-telefone"
+                  label="Telefone"
+                  {...ATRIBUTOS_TELEFONE}
+                  value={field.value}
+                  onBlur={field.onBlur}
+                  name={field.name}
+                  error={perfil.formState.errors.telefone?.message}
+                  onChange={(evento) => field.onChange(formatarTelefone(evento.target.value))}
+                />
+              )}
             />
             <FormField
               id="perfil-nascimento"
