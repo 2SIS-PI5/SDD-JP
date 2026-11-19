@@ -1,17 +1,256 @@
 {
   "quartos": [
-    { "id": "quarto-101", "nome": "Suíte Jardim", "capacidadeMaxima": 2 },
-    { "id": "quarto-201", "nome": "Suíte Família", "capacidadeMaxima": 4 }
+    {
+      "id": "quarto-101",
+      "nome": "Suíte Jardim",
+      "categoria": "Suíte",
+      "descricao": "Uma suíte serena com vista para os jardins internos, varanda privativa e uma atmosfera pensada para desacelerar.",
+      "descricaoLonga": "A Suíte Jardim combina madeira natural, tecidos claros e uma varanda voltada para o jardim tropical do hotel. O espaço foi desenhado para casais que buscam quietude sem abrir mão do conforto contemporâneo.",
+      "capacidadeMaxima": 2,
+      "camas": "1 cama queen",
+      "comodidades": ["Wi-Fi", "Ar-condicionado", "Varanda", "Frigobar", "Café da manhã"],
+      "imagens": [
+        "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1600&q=80"
+      ],
+      "precoDiaria": 480,
+      "avaliacao": 4.8,
+      "totalAvaliacoes": 126,
+      "destaque": true,
+      "politicaCancelamento": "Cancelamento gratuito até 72 horas antes do check-in."
+    },
+    {
+      "id": "quarto-102",
+      "nome": "Quarto Solteiro Standard",
+      "categoria": "Standard",
+      "descricao": "Acomodação prática e acolhedora para quem viaja a negócios ou busca uma estadia tranquila.",
+      "descricaoLonga": "Um refúgio compacto e funcional, com mesa de trabalho, iluminação quente e enxoval de algodão. Ideal para estadias individuais com a praticidade de estar perto de tudo.",
+      "capacidadeMaxima": 1,
+      "camas": "1 cama de solteiro",
+      "comodidades": ["Wi-Fi", "Ar-condicionado", "Mesa de trabalho", "Cofre", "Café da manhã"],
+      "imagens": [
+        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1600&q=80"
+      ],
+      "precoDiaria": 280,
+      "avaliacao": 4.5,
+      "totalAvaliacoes": 89,
+      "destaque": false,
+      "politicaCancelamento": "Cancelamento gratuito até 48 horas antes do check-in."
+    },
+    {
+      "id": "quarto-103",
+      "nome": "Quarto Duplo Standard",
+      "categoria": "Standard",
+      "descricao": "Conforto essencial para duas pessoas, com iluminação natural e detalhes em tons naturais.",
+      "descricaoLonga": "O Quarto Duplo Standard oferece duas camas confortáveis, uma área de estar compacta e vista para a cidade. Uma escolha equilibrada para amizades e viagens de trabalho.",
+      "capacidadeMaxima": 2,
+      "camas": "2 camas de solteiro",
+      "comodidades": ["Wi-Fi", "Ar-condicionado", "Frigobar", "TV", "Café da manhã"],
+      "imagens": [
+        "https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&w=1600&q=80"
+      ],
+      "precoDiaria": 360,
+      "avaliacao": 4.6,
+      "totalAvaliacoes": 154,
+      "destaque": true,
+      "politicaCancelamento": "Cancelamento gratuito até 48 horas antes do check-in."
+    },
+    {
+      "id": "quarto-104",
+      "nome": "Quarto Triplo Standard",
+      "categoria": "Família",
+      "descricao": "Espaço generoso para pequenas famílias, com camas flexíveis e uma atmosfera leve.",
+      "descricaoLonga": "Pensado para três hóspedes, o Quarto Triplo Standard combina uma cama de casal e uma de solteiro em um ambiente luminoso. A disposição favorece descanso e convivência.",
+      "capacidadeMaxima": 3,
+      "camas": "1 cama de casal + 1 de solteiro",
+      "comodidades": ["Wi-Fi", "Ar-condicionado", "Frigobar", "TV", "Café da manhã"],
+      "imagens": [
+        "https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1600&q=80"
+      ],
+      "precoDiaria": 440,
+      "avaliacao": 4.7,
+      "totalAvaliacoes": 98,
+      "destaque": false,
+      "politicaCancelamento": "Cancelamento gratuito até 72 horas antes do check-in."
+    },
+    {
+      "id": "quarto-201",
+      "nome": "Suíte Família",
+      "categoria": "Família",
+      "descricao": "Ampla e acolhedora, com ambientes integrados para famílias aproveitarem cada momento.",
+      "descricaoLonga": "A Suíte Família possui sala de estar, dois ambientes de descanso e uma varanda com vista para a piscina. Materiais naturais e iluminação suave criam um refúgio para toda a família.",
+      "capacidadeMaxima": 4,
+      "camas": "1 cama king + 2 camas de solteiro",
+      "comodidades": ["Wi-Fi", "Ar-condicionado", "Varanda", "Frigobar", "TV", "Café da manhã"],
+      "imagens": [
+        "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1600&q=80"
+      ],
+      "precoDiaria": 620,
+      "avaliacao": 4.9,
+      "totalAvaliacoes": 201,
+      "destaque": true,
+      "politicaCancelamento": "Cancelamento gratuito até 7 dias antes do check-in."
+    },
+    {
+      "id": "quarto-202",
+      "nome": "Suíte Master",
+      "categoria": "Suíte",
+      "descricao": "Sofisticação e privacidade em uma suíte com vista panorâmica e detalhes autorais.",
+      "descricaoLonga": "A Suíte Master oferece uma experiência mais reservada, com sala de estar, banheira independente e vista panorâmica. Cada detalhe foi escolhido para tornar a estadia memorável.",
+      "capacidadeMaxima": 2,
+      "camas": "1 cama king",
+      "comodidades": ["Wi-Fi", "Ar-condicionado", "Banheira", "Vista panorâmica", "Frigobar", "Café da manhã"],
+      "imagens": [
+        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1600&q=80"
+      ],
+      "precoDiaria": 720,
+      "avaliacao": 4.9,
+      "totalAvaliacoes": 87,
+      "destaque": true,
+      "politicaCancelamento": "Cancelamento gratuito até 7 dias antes do check-in."
+    },
+    {
+      "id": "quarto-203",
+      "nome": "Quarto Quádruplo",
+      "categoria": "Família",
+      "descricao": "Conforto para quatro hóspedes em um ambiente claro, prático e bem distribuído.",
+      "descricaoLonga": "Com duas camas de casal e uma área de convivência, o Quarto Quádruplo atende famílias e grupos de amigos. A decoração discreta valoriza o descanso e a luz natural.",
+      "capacidadeMaxima": 4,
+      "camas": "2 camas de casal",
+      "comodidades": ["Wi-Fi", "Ar-condicionado", "TV", "Frigobar", "Café da manhã"],
+      "imagens": [
+        "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1595576508898-0ad5c879a061?auto=format&fit=crop&w=1600&q=80"
+      ],
+      "precoDiaria": 560,
+      "avaliacao": 4.6,
+      "totalAvaliacoes": 112,
+      "destaque": false,
+      "politicaCancelamento": "Cancelamento gratuito até 72 horas antes do check-in."
+    },
+    {
+      "id": "quarto-301",
+      "nome": "Suíte Presidencial",
+      "categoria": "Suíte Presidencial",
+      "descricao": "O auge da hospitalidade do hotel: ampla, privativa e com serviço dedicado.",
+      "descricaoLonga": "A Suíte Presidencial ocupa o último andar e reúne sala de jantar, sala de estar, dois quartos e uma varanda ampla. O serviço dedicado e a vista aberta fazem desta a estadia mais exclusiva do hotel.",
+      "capacidadeMaxima": 6,
+      "camas": "2 camas king + 2 camas de solteiro",
+      "comodidades": ["Wi-Fi", "Ar-condicionado", "Varanda", "Banheira", "Sala de jantar", "Serviço dedicado", "Café da manhã"],
+      "imagens": [
+        "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=1600&q=80"
+      ],
+      "precoDiaria": 1450,
+      "avaliacao": 5.0,
+      "totalAvaliacoes": 34,
+      "destaque": true,
+      "politicaCancelamento": "Cancelamento gratuito até 14 dias antes do check-in."
+    },
+    {
+      "id": "quarto-302",
+      "nome": "Chalé Vila",
+      "categoria": "Chalé",
+      "descricao": "Um chalé independente cercado por vegetação, com varanda e ritmo próprio.",
+      "descricaoLonga": "O Chalé Vila é uma casa independente dentro do terreno do hotel, com sala, cozinha compacta e varanda privativa. Ideal para famílias que desejam privacidade e contato com a natureza.",
+      "capacidadeMaxima": 5,
+      "camas": "2 camas de casal + 1 de solteiro",
+      "comodidades": ["Wi-Fi", "Ar-condicionado", "Cozinha compacta", "Varanda", "TV", "Café da manhã"],
+      "imagens": [
+        "https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1600&q=80"
+      ],
+      "precoDiaria": 980,
+      "avaliacao": 4.8,
+      "totalAvaliacoes": 61,
+      "destaque": true,
+      "politicaCancelamento": "Cancelamento gratuito até 7 dias antes do check-in."
+    },
+    {
+      "id": "quarto-303",
+      "nome": "Suíte Varanda",
+      "categoria": "Suíte",
+      "descricao": "Uma suíte luminosa com varanda ampla e vista para o jardim e a piscina.",
+      "descricaoLonga": "A Suíte Varanda integra o quarto a uma varanda generosa, perfeita para o café da manhã ao ar livre. Tons claros e texturas naturais criam uma sensação de continuidade com o jardim.",
+      "capacidadeMaxima": 3,
+      "camas": "1 cama de casal + 1 de solteiro",
+      "comodidades": ["Wi-Fi", "Ar-condicionado", "Varanda", "Frigobar", "Café da manhã"],
+      "imagens": [
+        "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&w=1600&q=80",
+        "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1600&q=80"
+      ],
+      "precoDiaria": 690,
+      "avaliacao": 4.7,
+      "totalAvaliacoes": 143,
+      "destaque": false,
+      "politicaCancelamento": "Cancelamento gratuito até 72 horas antes do check-in."
+    }
   ],
   "reservas": [
     {
       "id": "reserva-001",
-      "hospede": "Hóspede de demonstração",
+      "codigo": "HSP-20261210-0001",
+      "usuarioId": "usuario-demonstracao",
       "quartoId": "quarto-101",
+      "hospede": "Hóspede de demonstração",
+      "email": "hospede@exemplo.com",
+      "telefone": "(11) 90000-0000",
+      "cpf": "000.000.000-00",
       "dataInicio": "2026-12-10",
       "dataFim": "2026-12-12",
+      "adultos": 2,
+      "criancas": 0,
       "quantidadePessoas": 2,
-      "status": "SOLICITADA"
+      "quantidadeQuartos": 1,
+      "diarias": 2,
+      "precoDiaria": 480,
+      "taxas": 96,
+      "total": 1056,
+      "status": "CONFIRMADA",
+      "statusPagamento": "APROVADO",
+      "criadaEm": "2026-11-19T12:00:00.000Z"
     }
-  ]
+  ],
+  "usuarios": [],
+  "pagamentos": [],
+  "avaliacoes": [
+    {
+      "id": "avaliacao-001",
+      "quartoId": "quarto-101",
+      "usuarioId": "usuario-demonstracao",
+      "hospede": "Marina A.",
+      "nota": 5,
+      "comentario": "O jardim ao amanhecer é ainda mais bonito do que nas fotos. Atendimento impecável.",
+      "criadaEm": "2026-10-02T12:00:00.000Z"
+    },
+    {
+      "id": "avaliacao-002",
+      "quartoId": "quarto-201",
+      "usuarioId": "usuario-demonstracao",
+      "hospede": "Rafael M.",
+      "nota": 5,
+      "comentario": "Viajamos em família e a suíte acomodou todos com bastante conforto.",
+      "criadaEm": "2026-09-18T12:00:00.000Z"
+    },
+    {
+      "id": "avaliacao-003",
+      "quartoId": "quarto-302",
+      "usuarioId": "usuario-demonstracao",
+      "hospede": "Camila R.",
+      "nota": 4,
+      "comentario": "O chalé é muito reservado e silencioso. Voltaria com certeza.",
+      "criadaEm": "2026-08-27T12:00:00.000Z"
+    }
+  ],
+  "contatos": []
 }
