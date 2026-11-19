@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import Header from '../components/molecules/Header/Header.jsx'
-import Footer from '../components/molecules/Footer/Footer.jsx'
+import Header from '../../components/molecules/Header/Header.jsx'
+import Footer from '../../components/molecules/Footer/Footer.jsx'
 import styles from './PublicLayout.module.css'
 
 function ScrollToTop() {
