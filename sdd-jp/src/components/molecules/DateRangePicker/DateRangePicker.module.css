@@ -49,7 +49,12 @@
   --rdp-accent-background-color: rgba(24, 61, 53, 0.1);
   --rdp-today-color: var(--color-primary);
   font-family: var(--font-sans);
+  color: var(--color-text);
   margin: 0;
+}
+
+.popover :global(.rdp-root) :global(.rdp-day_button) {
+  color: inherit;
 }
 
 @media (max-width: 640px) {

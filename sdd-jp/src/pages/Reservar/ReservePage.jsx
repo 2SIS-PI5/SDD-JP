@@ -8,7 +8,7 @@ import { verificarDisponibilidade } from '../../services/availabilityService.js'
 import { criarReserva } from '../../services/reservationService.js'
 import { processarPagamento } from '../../services/paymentService.js'
 import { useAuth } from '../../hooks/useAuth.js'
-import { adicionarDias, calcularDiarias, hojeISO } from '../../utils/date.js'
+import { adicionarDias, calcularDiarias, hojeISO, intervaloValido } from '../../utils/date.js'
 import { calcularTotais } from '../../utils/reserva.js'
 import StepHospedagem from './steps/StepHospedagem.jsx'
 import StepHospede from './steps/StepHospede.jsx'
@@ -18,6 +18,18 @@ import StepConfirmacao from './steps/StepConfirmacao.jsx'
 import styles from './ReservePage.module.css'
 
 const ETAPAS = ['Hospedagem', 'Hóspede', 'Revisão', 'Pagamento', 'Confirmação']
+
+function datasIniciaisDaUrl(params) {
+  const inicio = params.get('inicio')
+  const fim = params.get('fim')
+  if (intervaloValido(inicio, fim) && inicio >= hojeISO()) return { inicio, fim }
+  return { inicio: adicionarDias(hojeISO(), 1), fim: adicionarDias(hojeISO(), 3) }
+}
+
+function numeroDaUrl(params, chave, padrao, minimo = 0) {
+  const valor = Number(params.get(chave))
+  return Number.isFinite(valor) && valor >= minimo ? valor : padrao
+}
 
 function ReservePage() {
   const { id } = useParams()
@@ -29,11 +41,10 @@ function ReservePage() {
   const [etapa, setEtapa] = useState(1)
 
   const [estadia, setEstadia] = useState(() => ({
-    inicio: params.get('inicio') ?? adicionarDias(hojeISO(), 1),
-    fim: params.get('fim') ?? adicionarDias(hojeISO(), 3),
-    adultos: Number(params.get('adultos')) || 2,
-    criancas: Number(params.get('criancas')) || 0,
-    quartos: Number(params.get('quartos')) || 1,
+    ...datasIniciaisDaUrl(params),
+    adultos: numeroDaUrl(params, 'adultos', 2, 1),
+    criancas: numeroDaUrl(params, 'criancas', 0),
+    quartos: numeroDaUrl(params, 'quartos', 1, 1),
   }))
   const [hospede, setHospede] = useState({
     nome: usuario?.nome ?? '',
