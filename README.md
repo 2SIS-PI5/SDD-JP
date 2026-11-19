@@ -60,8 +60,14 @@ Outros comandos: `npm test`, `npm run lint`, `npm run build`. A URL da API pode 
 
 ## Contribuições
 
-- **[PREENCHER pelo grupo: quem fez o quê — por exemplo, especificação, mock, componentes, fluxo de reserva, testes, documentação.]**
+- Omar - Responsável por criar toda a estrutura inicial do projeto e criação do repositório da atividade
+Patricia - Responsável de fazer a Spec do projeto com a ideação do grupo e configuração do AGENTS.md  
+Nicolly - Responsábel por realizar o plan do projeto de acordo com o que foi feito na Spec.
+Ryan - Responsável por realizar a separação das tasks de implementação do que foi idealizado na Spec e planejado no Plan.
+Miguel -  Responsável por fazer a implementação das Tasks do projeto e testar para ver se estava tudo de acordo.
 
 ## Reflexão
 
-**[PREENCHER pelo grupo: o que o SDD ajudou, o que atrapalhou, o que o grupo faria diferente. Escrevam com as próprias palavras, com base na experiência de vocês.]**
+O SDD ajudou a ter toda a implementação que idealizamos documentada, onde ajuda o agente a ter uma noção do que queríamos e seguir aquilo que tínhamos documentado. O que atrapalhou foi não ter especificado mais o projeto no primeiro plano, porque deixamos bem básico e no segundo plano percebemos que faltavam detalhes importantes, como os estados de carregamento, erro e vazio das telas, as regras de validação dos formulários e o comportamento esperado quando a API falha. Esses pontos só apareceram durante a implementação, o que gerou retrabalho e várias idas e voltas para ajustar o que já estava pronto.
+
+Mesmo com esses problemas, a maior lição foi perceber que investir tempo na Spec e no Plan economiza tempo depois: quanto mais claro o contrato de dados, o fluxo de telas e os critérios de aceite, menos correções são necessárias na reta final, e o grupo consegue dividir melhor as tarefas e acompanhar o que está sendo feito. Se fossemos refazer o projeto, começaríamos detalhando melhor os fluxos principais antes de implementar, definiríamos desde o início os padrões de componentes, as mensagens de erro e o formato dos dados do mock, e validaríamos cada entrega com testes e checklist antes de avançar para a próxima tarefa, em entregas menores revisadas em grupo.
