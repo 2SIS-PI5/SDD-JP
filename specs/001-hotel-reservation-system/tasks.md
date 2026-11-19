@@ -51,7 +51,7 @@ Escrever e executar estes testes antes das tarefas de implementação; confirmar
 **Objetivo**: Preparar a entrega acadêmica e conferir o fluxo completo.
 
 - [x] T012 Atualizar o `README.md` da raiz com tema, integrantes, SpecKit, comandos de execução, caminhos dos artefatos, divisão de tarefas e reflexão, usando informações confirmadas pelo grupo.
-- [ ] T013 Executar `npm test`, `npm run lint`, `npm run build` e todos os cenários manuais de `specs/001-hotel-reservation-system/quickstart.md`; corrigir falhas antes do commit.
+- [x] T013 Executar `npm test`, `npm run lint`, `npm run build` e todos os cenários manuais de `specs/001-hotel-reservation-system/quickstart.md`; corrigir falhas antes do commit.
 
 ## Dependências e ordem de execução
 
