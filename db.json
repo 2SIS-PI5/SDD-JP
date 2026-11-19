@@ -1,0 +1,17 @@
+{
+  "quartos": [
+    { "id": "quarto-101", "nome": "Suíte Jardim", "capacidadeMaxima": 2 },
+    { "id": "quarto-201", "nome": "Suíte Família", "capacidadeMaxima": 4 }
+  ],
+  "reservas": [
+    {
+      "id": "reserva-001",
+      "hospede": "Hóspede de demonstração",
+      "quartoId": "quarto-101",
+      "dataInicio": "2026-12-10",
+      "dataFim": "2026-12-12",
+      "quantidadePessoas": 2,
+      "status": "SOLICITADA"
+    }
+  ]
+}

@@ -18,9 +18,9 @@
 
 **Objetivo**: Configurar dados locais, scripts e infraestrutura de testes.
 
-- [ ] T001 Adicionar JSON Server, Vitest, jsdom e bibliotecas React Testing Library, além dos scripts `api` e `test`, em `sdd-jp/package.json` e atualizar `sdd-jp/package-lock.json`.
-- [ ] T002 Configurar Vitest e ambiente jsdom em `sdd-jp/vite.config.js` e criar `sdd-jp/src/setupTests.js`.
-- [ ] T003 Criar `db.json` na raiz com as coleções `quartos` e `reservas`, dados demonstrativos e referências consistentes conforme `specs/001-hotel-reservation-system/data-model.md`.
+- [x] T001 Adicionar JSON Server, Vitest, jsdom e bibliotecas React Testing Library, além dos scripts `api` e `test`, em `sdd-jp/package.json` e atualizar `sdd-jp/package-lock.json`.
+- [x] T002 Configurar Vitest e ambiente jsdom em `sdd-jp/vite.config.js` e criar `sdd-jp/src/setupTests.js`.
+- [x] T003 Criar `db.json` na raiz com as coleções `quartos` e `reservas`, dados demonstrativos e referências consistentes conforme `specs/001-hotel-reservation-system/data-model.md`.
 
 ## Fase 2: História de Usuário 1 - Consultar e cadastrar reservas (Prioridade: P1)
 
