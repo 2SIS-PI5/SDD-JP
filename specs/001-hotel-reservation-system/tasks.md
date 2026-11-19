@@ -32,8 +32,8 @@
 
 Escrever e executar estes testes antes das tarefas de implementação; confirmar falhas por ausência da funcionalidade, não por erro na configuração de testes.
 
-- [ ] T004 [P] [US1] Testar `listarQuartos`, `listarReservas` e `criarReserva`, respostas válidas, HTTP não-2xx, falha de rede e corpo enviado em `sdd-jp/src/api/reservas.test.js`.
-- [ ] T005 [P] [US1] Testar carregamento/lista vazia, validação, cadastro único, nova tentativa após falha GET e preservação do formulário após falha POST em `sdd-jp/src/pages/ReservasPage.test.jsx`.
+- [x] T004 [P] [US1] Testar `listarQuartos`, `listarReservas` e `criarReserva`, respostas válidas, HTTP não-2xx, falha de rede e corpo enviado em `sdd-jp/src/api/reservas.test.js`.
+- [x] T005 [P] [US1] Testar carregamento/lista vazia, validação, cadastro único, nova tentativa após falha GET e preservação do formulário após falha POST em `sdd-jp/src/pages/ReservasPage.test.jsx`.
 
 ### Implementação da História de Usuário 1
 
