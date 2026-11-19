@@ -13,6 +13,7 @@ import {
   formatarTelefone,
   telefoneValido,
 } from '../../utils/telefone.js'
+import { MENSAGEM_SENHA, ROTULOS_FORCA, forcaDaSenha, senhaSuficiente } from '../../utils/senha.js'
 import styles from './AuthPages.module.css'
 
 const esquema = z
@@ -22,11 +23,7 @@ const esquema = z
     email: z.string().trim().email('Informe um e-mail válido.'),
     telefone: z.string().refine(telefoneValido, MENSAGEM_TELEFONE),
     dataNascimento: z.string().min(1, 'Informe a data de nascimento.'),
-    senha: z
-      .string()
-      .min(8, 'Use ao menos 8 caracteres.')
-      .regex(/[A-Za-z]/, 'Inclua ao menos uma letra.')
-      .regex(/\d/, 'Inclua ao menos um número.'),
+    senha: z.string().refine(senhaSuficiente, MENSAGEM_SENHA),
     confirmarSenha: z.string(),
     termos: z.literal(true, { error: 'É necessário aceitar os termos de uso.' }),
   })
@@ -34,16 +31,6 @@ const esquema = z
     path: ['confirmarSenha'],
     message: 'As senhas não conferem.',
   })
-
-function forcaDaSenha(senha) {
-  let pontos = 0
-  if (senha.length >= 8) pontos += 1
-  if (/[A-Z]/.test(senha) && /[a-z]/.test(senha)) pontos += 1
-  if (/\d/.test(senha)) pontos += 1
-  if (/[^A-Za-z0-9]/.test(senha)) pontos += 1
-  if (senha.length >= 12) pontos = Math.min(4, pontos + 1)
-  return pontos
-}
 
 function RegisterPage() {
   const { cadastrar } = useAuth()
@@ -73,7 +60,7 @@ function RegisterPage() {
 
   const senha = watch('senha')
   const pontos = useMemo(() => forcaDaSenha(senha ?? ''), [senha])
-  const rotuloForca = ['Muito fraca', 'Fraca', 'Razoável', 'Boa', 'Forte'][pontos]
+  const rotuloForca = ROTULOS_FORCA[pontos]
 
   async function criarConta(dados) {
     setErro('')

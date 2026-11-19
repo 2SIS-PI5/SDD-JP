@@ -7,16 +7,13 @@ import Alert from '../../components/atoms/Alert/Alert.jsx'
 import Button from '../../components/atoms/Button/Button.jsx'
 import FormField from '../../components/atoms/FormField/FormField.jsx'
 import { redefinirSenhaPorEmail } from '../../services/authService.js'
+import { MENSAGEM_SENHA, senhaSuficiente } from '../../utils/senha.js'
 import styles from './AuthPages.module.css'
 
 const esquema = z
   .object({
     email: z.string().trim().email('Informe um e-mail válido.'),
-    novaSenha: z
-      .string()
-      .min(8, 'Use ao menos 8 caracteres.')
-      .regex(/[A-Za-z]/, 'Inclua ao menos uma letra.')
-      .regex(/\d/, 'Inclua ao menos um número.'),
+    novaSenha: z.string().refine(senhaSuficiente, MENSAGEM_SENHA),
     confirmarSenha: z.string(),
   })
   .refine((dados) => dados.novaSenha === dados.confirmarSenha, {

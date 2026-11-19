@@ -8,6 +8,7 @@ import FormField from '../../components/atoms/FormField/FormField.jsx'
 import { useAuth } from '../../hooks/useAuth.js'
 import { alterarSenha } from '../../services/authService.js'
 import { formatarData } from '../../utils/date.js'
+import { MENSAGEM_SENHA, senhaSuficiente } from '../../utils/senha.js'
 import {
   ATRIBUTOS_TELEFONE,
   MENSAGEM_TELEFONE,
@@ -25,7 +26,7 @@ const esquemaPerfil = z.object({
 const esquemaSenha = z
   .object({
     senhaAtual: z.string().min(1, 'Informe a senha atual.'),
-    novaSenha: z.string().min(8, 'Use ao menos 8 caracteres.'),
+    novaSenha: z.string().refine(senhaSuficiente, MENSAGEM_SENHA),
     confirmar: z.string(),
   })
   .refine((dados) => dados.novaSenha === dados.confirmar, {
