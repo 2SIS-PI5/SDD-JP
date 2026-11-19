@@ -37,12 +37,12 @@ Escrever e executar estes testes antes das tarefas de implementação; confirmar
 
 ### Implementação da História de Usuário 1
 
-- [ ] T006 [US1] Implementar `listarQuartos`, `listarReservas` e `criarReserva` com `fetch`, validação de resposta HTTP e erros tratáveis em `sdd-jp/src/api/reservas.js`.
-- [ ] T007 [P] [US1] Criar formulário acessível para hóspede, quarto, datas e quantidade de pessoas, validando obrigatoriedade, `dataFim > dataInicio` e capacidade em `sdd-jp/src/components/FormularioReserva.jsx`.
-- [ ] T008 [P] [US1] Criar a lista de solicitações com nome do hóspede, quarto, período, quantidade e estado vazio em `sdd-jp/src/components/ListaReservas.jsx`.
-- [ ] T009 [US1] Implementar carregamento paralelo de quartos/reservas, mensagens de carregamento/erro, ação de repetir consulta, envio do formulário e inclusão única da resposta em `sdd-jp/src/pages/ReservasPage.jsx`.
-- [ ] T010 [US1] Substituir a tela padrão do Vite pela página de reservas em `sdd-jp/src/App.jsx`.
-- [ ] T011 [US1] Aplicar estilos responsivos e estados visíveis de foco, erro e desabilitado em `sdd-jp/src/App.css` e `sdd-jp/src/index.css` sem adicionar biblioteca de UI.
+- [x] T006 [US1] Implementar `listarQuartos`, `listarReservas` e `criarReserva` com `fetch`, validação de resposta HTTP e erros tratáveis em `sdd-jp/src/api/reservas.js`.
+- [x] T007 [P] [US1] Criar formulário acessível para hóspede, quarto, datas e quantidade de pessoas, validando obrigatoriedade, `dataFim > dataInicio` e capacidade em `sdd-jp/src/components/FormularioReserva.jsx`.
+- [x] T008 [P] [US1] Criar a lista de solicitações com nome do hóspede, quarto, período, quantidade e estado vazio em `sdd-jp/src/components/ListaReservas.jsx`.
+- [x] T009 [US1] Implementar carregamento paralelo de quartos/reservas, mensagens de carregamento/erro, ação de repetir consulta, envio do formulário e inclusão única da resposta em `sdd-jp/src/pages/ReservasPage.jsx`.
+- [x] T010 [US1] Substituir a tela padrão do Vite pela página de reservas em `sdd-jp/src/App.jsx`.
+- [x] T011 [US1] Aplicar estilos responsivos e estados visíveis de foco, erro e desabilitado em `sdd-jp/src/App.css` e `sdd-jp/src/index.css` sem adicionar biblioteca de UI.
 
 **Checkpoint**: A história está completa quando os testes automatizados passam e o fluxo funciona contra JSON Server.
 
