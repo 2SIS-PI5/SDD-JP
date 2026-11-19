@@ -1,50 +1,42 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# Constituição do Projeto SDD-JP
 
-## Core Principles
+## Princípios Fundamentais
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Escopo da atividade
+Entregar uma única funcionalidade completa que consome uma API HTTP em um projeto React criado com Vite. Não ampliar o trabalho para um sistema hoteleiro completo.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Especificação antes do plano
+A spec deve ser construída e revisada pelo grupo em uma única sessão do SpecKit. O grupo lê o texto em voz alta, corrige imprecisões e só inicia o planejamento após concordância de todos.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Contratos explícitos
+O contrato da API mock deve estar documentado no `db.json`, incluindo recursos, campos e valores de exemplo necessários para executar a funcionalidade.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Validação visível
+O fluxo principal, os dados inválidos e as falhas de comunicação devem ter resultados observáveis e critérios de aceitação verificáveis. Nenhum erro de API deve ser apresentado como sucesso.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Simplicidade e transparência
+Implementar apenas o necessário para a feature aprovada. O grupo revisa os artefatos, contribui com alterações próprias, registra a divisão de tarefas e usa commits pequenos e descritivos.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Restrições
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+- Front-end obrigatório: React com Vite.
+- Estrutura obrigatória para o front-end: `src/api`, `src/components` e `src/pages`.
+- A funcionalidade deve consumir uma API HTTP. JSON Server com `db.json` é o mock recomendado quando não há back-end.
+- Não são requisitos desta atividade Spring Boot, Oracle, MySQL, autenticação, pagamentos, avaliações ou painel administrativo.
+- A aplicação e os dados de exemplo são acadêmicos; não incluir credenciais ou dados pessoais reais.
+- Artefatos SpecKit, código e README preenchido devem permanecer versionados no repositório do grupo.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Fluxo de Trabalho e Qualidade
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+1. Revisar a spec coletivamente e registrar as correções antes do plano.
+2. Gerar plano e tarefas pelo SpecKit; dividir tarefas entre os integrantes e registrar responsáveis nos artefatos do projeto.
+3. Implementar apenas tarefas aprovadas, com testes para listagem, cadastro, validação e comportamento de erro.
+4. Executar os testes, lint e build; validar também o fluxo com a API em execução.
+5. Manter commits pequenos, claros e relacionados ao trabalho do grupo; não iniciar uma nova funcionalidade antes de validar a atual.
+6. Preencher o README com tema e integrantes, framework, comandos, localização dos artefatos, divisão de tarefas e reflexão da atividade.
 
-## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+## Governança
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+Esta constituição complementa a atividade e a spec aprovada. Em caso de conflito, prevalece o escopo mínimo da atividade e a decisão registrada pelo grupo. Qualquer ampliação de escopo exige nova concordância coletiva antes da implementação.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Versão**: 1.0.0 | **Ratificada**: 19 de novembro de 2026 | **Última alteração**: 19 de novembro de 2026

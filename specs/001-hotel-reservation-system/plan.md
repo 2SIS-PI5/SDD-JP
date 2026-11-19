@@ -1,75 +1,79 @@
- # Plano de Implementação: Sistema de Reservas Hotel Servilha
+# Plano de Implementação: Listagem e Cadastro de Reservas
 
-**Branch**: `001-hotel-reservation-system` | **Data**: 2026-11-16 | **Spec**: [spec.md](./spec.md)
+**Branch**: `main` | **Data**: 19 de novembro de 2026 | **Spec**: [spec.md](./spec.md)
 
-**Entrada**: Especificação da funcionalidade em `/specs/001-hotel-reservation-system/spec.md`
+**Entrada**: Especificação aprovada pelo grupo em `specs/001-hotel-reservation-system/spec.md`.
 
 ## Resumo
 
-Desenvolvimento do front-end em React.js (com Vite, Tailwind CSS, React Router DOM, Context API e Axios) para o **Hotel Servilha**, sistema de reservas focado no cliente. Inclui página inicial, catálogo de quartos com filtros e verificação de disponibilidade em tempo real, cadastro e login seguro via JWT, fluxo completo de reserva, área de perfil e gestão de reservas, pagamentos simulados (PIX, cartão, recepção) e sistema de avaliações pós-estadia.
+Implementar uma página React/Vite para listar quartos e solicitações de reserva, cadastrar uma solicitação e apresentar erros de consulta ou gravação. A aplicação consumirá uma API HTTP local fornecida por JSON Server, com o contrato documentado em `db.json` e `contracts/api.md`. O escopo não inclui servidor próprio, banco relacional, autenticação ou confirmação de disponibilidade.
 
 ## Contexto Técnico
 
-**Linguagem/Versão**: JavaScript (ES6+) / React 19 / Node.js
+**Linguagem/Versão**: JavaScript ES modules, React 19, Vite 8, Node.js 20.19 ou superior.
 
-**Dependências Principais**: React Router DOM, Axios, Tailwind CSS, React Hook Form (opcional)
+**Dependências Principais**: JSON Server para a API mock; Vitest, jsdom e React Testing Library para testes. Usar `fetch` nativo para as três operações HTTP, sem adicionar cliente HTTP.
 
-**Armazenamento**: localStorage (para token JWT e sessão) e integração REST com Back-end Spring Boot (com fallback mock local)
+**Armazenamento**: `db.json` na raiz do repositório, gerenciado pelo JSON Server.
 
-**Testes**: ESLint, verificação de build do Vite
+**Testes**: Vitest e React Testing Library. Testes automatizados cobrem API e interface com respostas controladas; o quickstart valida o fluxo manual contra JSON Server real.
 
-**Plataforma Alvo**: Navegadores modernos (Chrome, Firefox, Safari, Edge)
+**Plataforma Alvo**: Navegadores modernos em ambiente local de desenvolvimento.
 
-**Tipo de Projeto**: Aplicação Web (Single Page Application / Frontend)
+**Tipo de Projeto**: Front-end React SPA com API mock HTTP local.
 
-**Metas de Desempenho**: Carregamento de páginas públicas e resultados de busca em < 2 segundos
+**Metas de Desempenho**: Sem meta quantitativa definida pela atividade. A interface deve mostrar carregamento enquanto consulta e responder após a conclusão da chamada.
 
-**Restrições**: Não persistir dados reais de cartão de crédito; isolamento estrito de dados entre clientes; rotas privadas protegidas
+**Restrições**: Manter a estrutura obrigatória `sdd-jp/src/api`, `sdd-jp/src/components` e `sdd-jp/src/pages`; tratar erros de rede e HTTP; usar somente dados demonstrativos; não afirmar que a disponibilidade foi confirmada.
 
-**Escopo/Escala**: 7 fluxos/páginas principais (Home, Quartos, Detalhes do Quarto, Login/Cadastro, Minhas Reservas, Pagamento, Avaliações/Perfil)
+**Escopo/Escala**: Uma página, dois recursos (`quartos`, `reservas`) e três operações (`GET /quartos`, `GET /reservas`, `POST /reservas`).
 
 ## Verificação da Constituição
 
-GATE: Deve ser aprovado antes da Fase 0 de pesquisa. Reavaliar após a Fase 1 de design.
+Gate anterior à pesquisa: **APROVADO**. A feature atende React/Vite, consome uma API HTTP, mantém o contrato no `db.json`, cobre listagem/cadastro/erro e permanece em uma única jornada. Não requer Spring, Oracle ou MySQL.
 
-- **Escopo Exclusivo do Cliente**: APROVADO. Nenhuma tela administrativa ou de funcionários incluída.
-- **Segurança de Dados**: APROVADO. Senhas com BCrypt no back-end, sem armazenamento de dados de cartão e rotas protegidas por JWT.
-- **Padrões Técnicos**: APROVADO. Uso previsto de React 19, Tailwind CSS, React Router DOM e Axios.
+Gate após o design: **APROVADO**. JSON Server é explicitamente permitido pela atividade; os testes cobrem sucesso, validação e falhas; a estrutura de pastas obrigatória será respeitada.
 
 ## Estrutura do Projeto
 
-### Documentação (esta funcionalidade)
+### Documentação desta feature
 
 ```text
 specs/001-hotel-reservation-system/
-├── plan.md              # Este ficheiro
-├── research.md          # Saída da Fase 0
-├── data-model.md        # Saída da Fase 1
-├── quickstart.md        # Saída da Fase 1
-├── contracts/           # Saída da Fase 1
-└── tasks.md             # Saída da Fase 2 (criada posteriormente)
+├── spec.md
+├── plan.md
+├── research.md
+├── data-model.md
+├── quickstart.md
+├── contracts/api.md
+├── checklists/requirements.md
+└── tasks.md
 ```
 
-### Código Fonte (raiz do repositório)
+### Código-fonte
 
 ```text
+db.json
 sdd-jp/
-├── src/
-│   ├── assets/
-│   ├── components/      # Navbar, Footer, RoomCard, FilterBar, Modal, etc.
-│   ├── context/         # AuthContext, BookingContext
-│   ├── pages/           # Home, Rooms, RoomDetails, Login, Register, Profile, Bookings, Payment, Reviews
-│   ├── services/        # api.js (configuração do Axios)
-│   ├── App.jsx
-│   ├── main.jsx
-│   └── index.css
 ├── package.json
-└── vite.config.js
+├── vite.config.js
+└── src/
+	├── api/
+	│   ├── reservas.js
+	│   └── reservas.test.js
+	├── components/
+	│   ├── FormularioReserva.jsx
+	│   ├── FormularioReserva.test.jsx
+	│   └── ListaReservas.jsx
+	├── pages/
+	│   └── ReservasPage.jsx
+	├── setupTests.js
+	├── App.jsx
+	└── main.jsx
 ```
 
-**Decisão de Estrutura**: Aplicação SPA React em `sdd-jp/`, organizada em componentes, pages, context e services conforme as diretrizes do projeto e do AGENTS.md.
+**Decisão de Estrutura**: Manter o Vite existente em `sdd-jp/`, colocar a API HTTP em `src/api`, os componentes compartilhados em `src/components` e o fluxo de página em `src/pages`. Não criar outro front-end nem um back-end Java.
 
-## Reavaliação Pós-Design
+## Rastreamento de Complexidade
 
-- Todas as gates da constituição reavaliadas após o design da Fase 1: APROVADO
-- Observações: O design respeita o "Escopo Exclusivo do Cliente", as restrições de segurança (nenhum dado de cartão persistido) e as convenções de estrutura do projeto.
+Nenhuma violação da constituição ou abstração adicional é necessária para esta feature.

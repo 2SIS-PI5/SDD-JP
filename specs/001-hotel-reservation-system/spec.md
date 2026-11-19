@@ -1,75 +1,62 @@
-# Especificação: Hotel Servilha - Sistema Web de Reservas de Hotel
+# Especificação: Listagem e Cadastro de Reservas
 
-**Nome da Funcionalidade**: Sistema de Reservas Hotel Servilha
-**Data**: 12 de Novembro de 2026
-**Status**: Especificado
+**Feature Branch**: `main`
+**Criado**: 19 de novembro de 2026
+**Status**: Rascunho para revisão coletiva
+**Entrada**: Uma funcionalidade de reservas do Hotel Servilha que permite consultar dados, cadastrar uma solicitação e apresentar erros de comunicação.
 
-## 1. Resumo Executivo e Objetivo
+## Cenários de Usuário e Testes
 
-Desenvolver uma aplicação Full Stack para reservas de hotel com foco exclusivo na experiência do cliente para o **Hotel Servilha**. O sistema permite que visitantes conheçam o estabelecimento, consultem acomodações, verifiquem disponibilidade em tempo real, realizem cadastro e login, efetuem reservas, gerenciem perfis pessoais, realizem pagamentos simulados e enviem avaliações após hospedagens concluídas.
+### História de Usuário 1: Consultar e cadastrar reservas (Prioridade: P1)
 
-A aplicação possui Front-end em React.js (com Vite, Tailwind CSS, React Router, Context API) e Back-end em Java 21 Spring Boot com Spring Security, JWT, JPA/Hibernate, e banco de dados MySQL gerenciado via migrations Flyway. Nenhuma tela ou funcionalidade administrativa / de funcionários é incluída.
+Como visitante do Hotel Servilha, quero consultar os quartos e as solicitações de reserva existentes e cadastrar uma nova solicitação, para registrar o período e a acomodação desejados.
 
-## 2. Cenários de Usuário e Testes
+**Por que esta prioridade**: É a única jornada necessária para demonstrar uma funcionalidade completa que lê e grava dados por meio de uma API.
 
-### História de Usuário 1: Explorar Informações do Hotel (Público)
-Como visitante, quero visualizar a página inicial do hotel contendo banner principal, apresentação, descrição das acomodações, comodidades, galeria de fotos, avaliações de hóspedes, localização e informações de contato, para decidir me hospedar no Hotel Servilha.
-- **Teste de Aceitação**: O visitante acessa a aplicação, visualiza todas as seções da página inicial claramente e pode clicar em botões para pesquisar quartos ou acessar login/cadastro.
+**Teste independente**: Com o serviço de dados disponível, abrir a página apresenta quartos e reservas; enviar um formulário válido cria uma solicitação e ela aparece uma única vez na lista.
 
-### História de Usuário 2: Consultar Quartos e Disponibilidade
-Como visitante/hóspede, quero filtrar e pesquisar quartos por data de entrada, data de saída, quantidade de adultos e crianças, categoria, faixa de preço e capacidade, para encontrar acomodações disponíveis que atendam às minhas necessidades.
-- **Teste de Aceitação**: Ao inserir os critérios de pesquisa, o sistema consulta o back-end para verificar a disponibilidade em relação às reservas existentes e exibe os quartos correspondentes com fotografias, comodidades, capacidade e valor da diária.
+**Cenários de aceitação**:
 
-### História de Usuário 3: Cadastro de Clientes e Login Seguro
-Como novo cliente, quero me cadastrar com validação (CPF, e-mail único, senha forte, aceite de termos) e fazer login seguro via JWT, para acessar minha área privada e realizar reservas.
-- **Teste de Aceitação**: O cadastro valida todos os campos e armazena senhas criptografadas com BCrypt. O login retorna um token JWT válido que persiste entre sessões e protege rotas privadas.
+1. **Dado** que existem quartos e reservas, **quando** a pessoa abre a página, **então** os dados são apresentados e cada reserva identifica seu quarto.
+2. **Dado** que o formulário contém hóspede, quarto, datas válidas e quantidade de pessoas dentro da capacidade, **quando** a pessoa confirma, **então** a solicitação é registrada e aparece na lista.
+3. **Dado** que a data de saída é igual ou anterior à entrada, ou que a quantidade de pessoas excede a capacidade, **quando** a pessoa tenta confirmar, **então** a solicitação não é enviada e os campos inválidos recebem uma mensagem clara.
+4. **Dado** que a consulta inicial falha, **quando** a página tenta carregar, **então** uma mensagem de erro é apresentada e a pessoa pode tentar novamente.
+5. **Dado** que o cadastro falha, **quando** a pessoa confirma, **então** uma mensagem de erro é apresentada e os dados preenchidos permanecem no formulário.
 
-### História de Usuário 4: Fluxo Completo de Reserva
-Como cliente autenticado, quero selecionar datas, informar hóspedes, escolher uma acomodação, revisar detalhes e resumo financeiro, e confirmar minha reserva, recebendo um código de confirmação único.
-- **Teste de Aceitação**: O back-end valida regras de datas, capacidade do quarto e previne conflitos. O valor total é calculado no back-end e a reserva é persistida com sucesso, retornando o código de confirmação.
+### Casos de borda
 
-### História de Usuário 5: Área Pessoal e Gestão de Reservas
-Como cliente, quero visualizar e editar meu perfil (nome, telefone, senha) e acompanhar minhas reservas (futuras, em andamento, concluídas e canceladas), podendo cancelar conforme as regras de negócio.
-- **Teste de Aceitação**: O cliente acessa sua área privada, atualiza dados cadastrais, visualiza reservas categorizadas e cancela reservas elegíveis sem bloquear registros passados/concluídos.
+- A lista de quartos ou de reservas pode estar vazia; a página deve informar que não há registros, sem tratar isso como erro.
+- A API pode falhar ao carregar qualquer uma das listas; a interface deve informar qual operação falhou e permitir nova tentativa.
+- A API pode rejeitar o cadastro; a interface não deve exibir confirmação nem apagar os valores preenchidos.
+- Uma resposta de sucesso sem o registro criado não deve produzir uma entrada duplicada na lista.
 
-### História de Usuário 6: Processamento de Pagamento Simulado
-Como cliente com reserva pendente, quero selecionar um método de pagamento (PIX, cartão de crédito, cartão de débito ou pagamento na recepção), processar a simulação e visualizar o histórico de transações e comprovante.
-- **Teste de Aceitação**: A simulação de pagamento registra tentativas, atualiza o status do pagamento e da reserva corretamente e disponibiliza um comprovante demonstrativo sem cobranças financeiras reais.
+## Requisitos
 
-### História de Usuário 7: Avaliações de Hóspedes Pós-Estadia
-Como cliente com estadia concluída, quero enviar uma avaliação de 1 a 5 estrelas com comentário textual, visualizar avaliações públicas e editar ou excluir minha própria avaliação.
-- **Teste de Aceitação**: Somente clientes com hospedagens concluídas podem avaliar. As avaliações aparecem na listagem pública e podem ser modificadas ou removidas pelo autor.
+### Requisitos funcionais
 
-## 3. Requisitos Funcionais
+- **RF-001**: A pessoa usuária deve conseguir visualizar os quartos cadastrados para seleção e as solicitações de reserva retornadas pelo serviço de dados.
+- **RF-002**: A pessoa usuária deve conseguir enviar uma solicitação com nome do hóspede, quarto, data de entrada, data de saída e quantidade de pessoas.
+- **RF-003**: O sistema deve exigir os campos obrigatórios, validar que a data de saída seja posterior à entrada e que a quantidade de pessoas não exceda a capacidade do quarto selecionado.
+- **RF-004**: Após o serviço confirmar o cadastro, o sistema deve apresentar a solicitação recém-criada na lista sem duplicá-la.
+- **RF-005**: Em falha ao consultar dados, o sistema deve informar o erro e disponibilizar nova tentativa.
+- **RF-006**: Em falha ao cadastrar, o sistema deve informar o erro e preservar os valores do formulário.
 
-### 3.1 Página Inicial e Consulta de Quartos
-- Exibir banner principal com imagens do hotel, nome ("Hotel Servilha"), apresentação, comodidades, galeria de fotografias, avaliações de hóspedes, informações de localização e de contato.
-- Catálogo de quartos com fotografias, nome e categoria, descrição, capacidade máxima, quantidade de camas, comodidades, valor da diária e informações adicionais.
-- Filtros de pesquisa: Data de entrada, data de saída, quantidade de adultos, quantidade de crianças, categoria do quarto, faixa de preço, capacidade de hóspedes.
-- Consulta de disponibilidade em tempo real no back-end considerando reservas existentes não canceladas.
+### Entidades principais
 
-### 3.2 Autenticação e Perfil
-- Formulário de cadastro: Nome completo, CPF, e-mail, telefone, data de nascimento, senha, confirmação de senha e aceite dos termos de uso e política de privacidade.
-- Validações: E-mails duplicados proibidos, validação de CPF, validação de formato de e-mail, campos obrigatórios, requisitos mínimos de senha, armazenamento seguro com BCrypt.
-- Autenticação: Login com e-mail e senha via JWT, controle de sessão, logout, proteção de rotas privadas, recuperação de senha e persistência segura. Acesso restrito aos dados da própria conta.
-- Perfil: Visualizar dados cadastrais, editar nome, telefone e informações permitidas, consultar e-mail e alterar senha.
+- **Quarto**: acomodação selecionável, identificada por código, nome e capacidade máxima de pessoas.
+- **Solicitação de reserva**: pedido de hospedagem com identificador, nome do hóspede, quarto, datas de entrada e saída, quantidade de pessoas e estado inicial.
 
-### 3.3 Processo de Reserva
-- Fluxo completo: Selecionar data de entrada -> selecionar data de saída -> informar hóspedes -> apresentar quartos disponíveis -> escolher acomodação -> exibir detalhes e resumo financeiro -> confirmar reserva -> registrar no banco de dados e retornar código de confirmação e detalhes (código, quarto, datas, hóspedes, diárias, valor da diária, valor total, data de realização, status).
-- Regras de Negócio: Proibir datas inválidas, saída posterior à entrada, proibir conflitos de reservas, validar capacidade do quarto, calcular valor total no back-end, impedir acesso cruzado entre clientes, garantir consistência em reservas simultâneas, reservas canceladas liberam disponibilidade.
+## Critérios de sucesso
 
-### 3.4 Módulo de Pagamentos (Simulado)
-- Métodos suportados: PIX, cartão de crédito, cartão de débito, pagamento na recepção.
-- Funcionalidades: Visualizar valor a pagar, consultar método de pagamento, consultar status, histórico de pagamentos e confirmação/comprovante.
-- Regras: Simulação totalmente funcional (sem cobranças reais), registro de tentativas no banco de dados, atualização de status de pagamento e reserva, sem armazenamento de dados reais de cartões.
+- **CS-001**: Com respostas válidas do serviço, quartos e solicitações existentes são exibidos sem intervenção manual.
+- **CS-002**: Uma solicitação válida aceita pelo serviço aparece uma vez na lista após o envio.
+- **CS-003**: Dados inválidos impedem o envio e produzem mensagens associadas aos campos relevantes.
+- **CS-004**: Falhas de consulta e cadastro produzem mensagens compreensíveis; a nova tentativa de consulta e a preservação do formulário após falha de cadastro são verificáveis.
 
-### 3.5 Módulo de Avaliações
-- Funcionalidades: Avaliação de 1 a 5 estrelas, comentário textual, data da avaliação e listagem pública de avaliações.
-- Regras: Restrito a clientes com hospedagem concluída, proibir avaliações duplicadas para a mesma estadia, permitir edição e exclusão da própria avaliação pelo autor.
+## Premissas e limites
 
-## 4. Critérios de Sucesso
-
-- **Desempenho e Usabilidade**: 100% das páginas públicas e pesquisas de quartos carregam e retornam resultados em menos de 2 segundos.
-- **Segurança e Integridade**: 100% das senhas criptografadas com BCrypt; isolamento estrito de dados garantindo que usuários não acessem dados de outras contas.
-- **Confiabilidade de Reservas**: O back-end bloqueia 100% de reservas conflitantes e calcula corretamente os valores totais sem manipulação no front-end.
-- **Funcionalidade Ponta a Ponta**: Os clientes conseguem realizar com sucesso o cadastro, login, busca de quartos, reserva, simulação de pagamento, gestão de perfil e envio de avaliações de forma totalmente integrada.
+- A aplicação é uma demonstração acadêmica; não autentica pessoas nem processa dados pessoais reais.
+- Os quartos e as solicitações são fornecidos por um serviço de dados. O comportamento de erro desse serviço faz parte da funcionalidade.
+- O cadastro registra uma solicitação demonstrativa; não confirma disponibilidade em tempo real nem garante uma reserva contra concorrência.
+- Login, perfil, cancelamento, pagamento, avaliações, painel administrativo e back-end próprio estão fora do escopo desta funcionalidade.
+- A tecnologia do serviço de dados será definida no plano; a especificação descreve o resultado esperado para a pessoa usuária.

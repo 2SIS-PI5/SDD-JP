@@ -1,82 +1,36 @@
-## Contratos da API
+## Contrato HTTP: Listagem e Cadastro de Reservas
 
-Base URL: http://localhost:8080/api
+**Servidor local**: `http://localhost:3000` (configurável por `VITE_API_URL`).
 
-1) Autenticação
-- POST /auth/register
-  Requisição: { nome, cpf, email, telefone?, dataNascimento?, senha, acceptTerms }
-  Resposta: 201 { id, nome, email }
+**Formato**: JSON em UTF-8. Não há autenticação nesta demonstração.
 
-- POST /auth/login
-  Requisição: { email, senha }
-  Resposta: 200 { token: JWT, expiresIn }
+### `GET /quartos`
 
-- GET /auth/me
-  Headers: Authorization: Bearer <token>
-  Resposta: 200 { id, nome, email, telefone, dataNascimento }
+- **Sucesso**: `200 OK`, array de quartos conforme [data-model.md](../data-model.md).
+- **Falha**: erro de rede ou resposta HTTP não-2xx; a página deve informar a falha e permitir nova tentativa.
 
-- PUT /auth/me
-  Headers: Authorization: Bearer <token>
-  Requisição: { nome?, telefone?, dataNascimento?, senha? }
-  Resposta: 200 { id, nome, email, telefone, dataNascimento }
+### `GET /reservas`
 
-2) Quartos
-- GET /rooms?dataInicio=yyyy-mm-dd&dataFim=yyyy-mm-dd&adults=&children=&category=&minPrice=&maxPrice=
-  Resposta: 200 [ { id, nome, categoria, capacidadeAdultos, capacidadeCriancas, precoPorNoite, fotos, comodidades } ]
+- **Sucesso**: `200 OK`, array de solicitações de reserva conforme [data-model.md](../data-model.md).
+- **Falha**: erro de rede ou resposta HTTP não-2xx; a página deve informar a falha e permitir nova tentativa.
 
-- GET /rooms/{id}
-  Resposta: 200 { detalhes completos do quarto (campos: id, codigo, nome, categoria, descricao, capacidadeAdultos, capacidadeCriancas, camas, precoPorNoite, comodidades, fotos) }
+### `POST /reservas`
 
-3) Reservas
-- POST /reservations
-  Headers: Authorization
-  Requisição: { quartoId, dataInicio, dataFim, adultos, criancas }
-  Resposta: 201 { id, codigo, status: PENDING, valorTotal, diaria, dataInicio, dataFim }
-  Erros: 409 Conflict (data indisponível), 400 Bad Request (validação)
+- **Content-Type**: `application/json`.
+- **Requisição**:
 
-- GET /reservations (consultar por usuário)
-  Headers: Authorization
-  Resposta: 200 [ { resumo das reservas } ]
+```json
+{
+  "hospede": "Hóspede de demonstração",
+  "quartoId": "quarto-101",
+  "dataInicio": "2026-12-10",
+  "dataFim": "2026-12-12",
+  "quantidadePessoas": 2,
+  "status": "SOLICITADA"
+}
+```
 
-- GET /reservations/{id}
-  Headers: Authorization (proprietário)
-  Resposta: 200 { detalhes da reserva }
+- **Sucesso**: `201 Created`, retorna a solicitação com `id` atribuído pelo JSON Server.
+- **Falha**: erro de rede ou resposta HTTP não-2xx; a interface informa a falha e preserva os valores do formulário.
 
-- POST /reservations/{id}/cancel
-  Headers: Authorization
-  Resposta: 200 { status: CANCELLED }
-
-4) Pagamentos (Simulados)
-- POST /payments
-  Headers: Authorization
-  Requisição: { reservaId, metodo, payload? }
-  Resposta: 201 { id, status: PENDING }
-  Observação: O back-end irá simular o resultado (SUCCESS/FAILED) e atualizar a reserva
-
-- GET /payments/{id}
-  Headers: Authorization
-  Resposta: 200 { detalhes do pagamento }
-
-5) Avaliações
-- POST /reviews
-  Headers: Authorization
-  Requisição: { reservaId, avaliacao, comentario }
-  Resposta: 201 { id, avaliacao, comentario }
-  Erros: 403 Forbidden (se a reserva não estiver concluída), 409 Conflict (avaliação duplicada - constraint única em reservaId+usuarioId)
-
-- PUT /reviews/{id}
-  Headers: Authorization
-  Requisição: { avaliacao, comentario }
-  Resposta: 200 { avaliação atualizada }
-
-- DELETE /reviews/{id}
-  Headers: Authorization
-  Resposta: 204 No Content
-
-Autenticação: JWT no header Authorization. Verificações de propriedade devem ser aplicadas no servidor.
-
-Formatação e Locale
-
-- Observação importante sobre formatos e apresentação:
-  - O protocolo da API usa JSON com tipos numéricos (números decimais com ponto) e datas em ISO 8601 (yyyy-mm-dd / datetimes ISO). Não enviar valores formatados com vírgula/thousands separators no corpo das requisições JSON: utilize números crus (ex: 1234.56) para campos monetários.
-  - O frontend deve apresentar valores e datas ao usuário no padrão pt-BR: números monetários com separador decimal ',' e separador de milhares '.' (ex.: "R$ 1.234,56") e datas no formato dd/MM/yyyy. Implementar utilitários de formatação no frontend e usar máscara para CPF ('000.000.000-00') enquanto enviar CPF sem formatação ao backend (somente dígitos).
+O cliente valida campos obrigatórios, datas e capacidade antes do envio. Esse contrato não oferece disponibilidade em tempo real, prevenção de sobreposição de datas, autenticação ou confirmação definitiva da hospedagem.

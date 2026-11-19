@@ -1,29 +1,53 @@
- # quickstart.md
+# Quickstart: Listagem e Cadastro de Reservas
 
-Pré-requisitos
-- Node.js (>=16), npm
-- (Opcional) Backend Spring Boot rodando em http://localhost:8080
+## Pré-requisitos
 
-Frontend (sdd-jp)
-1. Instalar dependências
-   cd C:\Users\Patri\OneDrive - SPTech School\Documentos\4Bimestre\front_end\react\atividades\SDD-JP\sdd-jp
-   npm install
+- Node.js 20.19 ou superior e npm.
+- Terminal aberto na raiz do repositório.
 
-2. Instalar bibliotecas recomendadas
-   npm install react-router-dom axios
-   npm install -D tailwindcss postcss autoprefixer && npx tailwindcss init -p
+## Instalação
 
-3. Rodar em modo desenvolvimento
-   npm run dev
+```cmd
+cd sdd-jp
+npm install
+```
 
-4. Configurar base da API
-   No arquivo src/services/api.js, configurar baseURL para http://localhost:8080/api
-   Implementar fallback mock (em memória ou json-server) quando o back-end não estiver disponível.
+## Executar
 
-Cenários de validação
-- Cenário A (com back-end): Inicie o back-end local, inicie o frontend, registre um usuário, efetue login, pesquise quartos para datas disponíveis, crie uma reserva, simule pagamento, confirme a reserva, marque a estadia como concluída (no back-end) e envie uma avaliação.
-- Cenário B (mock): Inicie o frontend em modo mock e execute os mesmos fluxos para validar a UI e comportamentos do cliente.
+Abra dois terminais, ambos na pasta `sdd-jp`.
 
-Resultados esperados
-- Frontend servido em http://localhost:5173 (padrão Vite).
-- Chamadas à API funcionam contra o back-end ou mock; o fluxo de reserva retorna código de confirmação; a simulação de pagamento atualiza estados; avaliações são aceitas apenas após estadias concluídas.
+Terminal 1, iniciar a API de demonstração:
+
+```cmd
+npm run api
+```
+
+Terminal 2, iniciar o front-end:
+
+```cmd
+npm run dev
+```
+
+Abra `http://localhost:5173`. A API fica em `http://localhost:3000`; os dados iniciais estão em `db.json` na raiz.
+
+## Testes automatizados e verificações
+
+Na pasta `sdd-jp`, execute:
+
+```cmd
+npm test
+npm run lint
+npm run build
+```
+
+Os testes automatizados não exigem JSON Server ativo; as respostas HTTP são controladas nos testes. O cenário manual abaixo verifica a integração real.
+
+## Cenários de aceitação manuais
+
+1. Com os dois processos ativos, confirme que a página exibe os quartos e solicitações de `db.json`.
+2. Tente cadastrar com saída igual à entrada ou pessoas acima da capacidade; o formulário deve indicar o campo inválido e não enviar a solicitação.
+3. Envie uma solicitação válida; ela deve receber `SOLICITADA` e aparecer uma única vez na lista.
+4. Pare o JSON Server e recarregue a página; a falha deve ser informada e deve existir uma ação para tentar novamente. Reinicie o servidor e repita a tentativa.
+5. Com a página já carregada, pare o JSON Server, preencha o formulário e envie; a falha deve ser informada sem limpar os campos. Reinicie a API e envie novamente.
+
+Esses cenários registram uma solicitação demonstrativa. Não representam confirmação de disponibilidade ou de hospedagem.

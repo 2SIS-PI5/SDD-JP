@@ -1,34 +1,33 @@
-# Lista de Verificação de Qualidade da Especificação: Sistema de Reservas Hotel Servilha
+# Lista de Verificação de Qualidade da Especificação: Listagem e Cadastro de Reservas
 
-**Propósito**: Validar a integridade e qualidade da especificação antes de prosseguir para o planejamento
-**Criado**: 12 de Novembro de 2026
+**Propósito**: Validar a qualidade do rascunho antes do planejamento
+**Criado**: 19 de novembro de 2026
 **Funcionalidade**: [spec.md](../spec.md)
 
 ## Qualidade do Conteúdo
 
-- [x] Sem detalhes de implementação (linguagens, frameworks, APIs)
-- [x] Focado no valor para o usuário e necessidades de negócio
+- [x] Focado no valor para a pessoa usuária
 - [x] Escrito para partes interessadas não técnicas
-- [x] Todas as seções obrigatórias preenchidas
+- [x] Seções obrigatórias preenchidas
+- [x] Sem escolha de linguagem, framework ou banco de dados na especificação
 
 ## Completude dos Requisitos
 
-- [x] Sem marcadores [NEEDS CLARIFICATION] pendentes
-- [x] Requisitos testáveis e sem ambiguidades
-- [x] Critérios de sucesso mensuráveis
-- [x] Critérios de sucesso agnósticos de tecnologia (sem detalhes de implementação)
-- [x] Todos os cenários de aceitação definidos
+- [x] Sem marcadores de esclarecimento pendentes
+- [x] Requisitos testáveis e sem ambiguidades relevantes
+- [x] Critérios de sucesso verificáveis
+- [x] Cenários de aceitação definidos para leitura, cadastro e erros
 - [x] Casos de borda identificados
-- [x] Escopo claramente delimitado
-- [x] Dependências e premissas identificadas
+- [x] Escopo e itens fora de escopo explícitos
+- [x] Premissas e dependências identificadas
 
-## Prontidão da Funcionalidade
+## Prontidão para Revisão Coletiva
 
-- [x] Todos os requisitos funcionais possuem critérios de aceitação claros
-- [x] Cenários de usuário cobrem os fluxos principais
-- [x] Funcionalidade atende aos resultados mensuráveis definidos nos Critérios de Sucesso
-- [x] Nenhum detalhe de implementação vaza para a especificação
+- [x] Spec revisada pelo grupo, conforme aprovação confirmada pelo usuário em 19 de novembro de 2026
+- [x] Correções necessárias incorporadas ao rascunho aprovado
+- [x] Aprovação para iniciar o planejamento confirmada pelo usuário
 
 ## Observações
 
-- Especificação criada e validada com sucesso para o sistema de reservas do Hotel Servilha. Pronto para a fase de planejamento.
+- Este rascunho reduz a feature anterior de sete histórias para uma única jornada de consulta e cadastro de solicitações de reserva.
+- A revisão e a aprovação do grupo foram confirmadas pelo representante do projeto nesta conversa.

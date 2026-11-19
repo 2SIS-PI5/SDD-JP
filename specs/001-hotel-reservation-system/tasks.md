@@ -1,152 +1,72 @@
-# Tasks: Sistema de Reservas Hotel Servilha
+# Tarefas: Listagem e Cadastro de Reservas
 
-## Feature: Sistema de Reservas Hotel Servilha
+**Entrada**: Documentos de design em `/specs/001-hotel-reservation-system/`
 
-## Phase 1: Setup (Shared Infrastructure)
+**Pré-requisitos**: `plan.md`, `spec.md`, `research.md`, `data-model.md` e `contracts/`.
 
-**Purpose**: Inicializar estrutura do frontend, dependências e configuração básica
+**Testes**: Obrigatórios pela atividade. Escrever os testes da história antes da implementação e confirmar que falham pelos motivos esperados.
 
-- [ ] T001 Criar pastas do frontend em sdd-jp/src: components/, pages/, context/, services/, assets/ (sdd-jp/src/)
-- [ ] T002 Atualizar sdd-jp/package.json adicionando dependências: react-router-dom, axios, tailwindcss, react-hook-form (sdd-jp/package.json)
-- [ ] T003 Configurar Tailwind: criar sdd-jp/tailwind.config.cjs e atualizar sdd-jp/src/index.css para incluir diretivas Tailwind (sdd-jp/tailwind.config.cjs, sdd-jp/src/index.css)
-- [ ] T004 Criar arquivo de configuração do Axios e base API em sdd-jp/src/services/api.js com baseURL=http://localhost:8080/api e interceptors para Authorization (sdd-jp/src/services/api.js)
+**Organização**: Uma história P1, independente e demonstrável.
 
----
+## Formato
 
-## Phase 2: Foundational (Blocking Prerequisites)
+- `[P]` indica tarefas que podem ser executadas em paralelo sem conflito de arquivos.
+- `[US1]` identifica tarefas da única história de usuário.
+- Toda tarefa contém os caminhos exatos dos arquivos.
 
-**Purpose**: Infraestrutura que bloqueia todas as histórias de usuário até estar pronta
+## Fase 1: Preparação
 
- - [ ] T005 [P] Criar AuthContext para gerenciamento de token e estado do usuário em sdd-jp/src/context/AuthContext.jsx
- - [ ] T006 [P] Criar BookingContext para estado de reservas temporárias e seleção de datas em sdd-jp/src/context/BookingContext.jsx
- - [ ] T007 Inicializar roteamento e layout base em sdd-jp/src/App.jsx (React Router DOM, rotas públicas/privadas)
- - [ ] T008 [P] Criar componentes base Navbar e Footer em sdd-jp/src/components/Navbar.jsx e sdd-jp/src/components/Footer.jsx
- - [ ] T009 [P] Criar definições de tipos/models de frontend (JS objects) em sdd-jp/src/types/user.js, sdd-jp/src/types/room.js, sdd-jp/src/types/reservation.js, sdd-jp/src/types/payment.js, sdd-jp/src/types/review.js — incluir e implementar as seguintes validações exatamente como no data-model.md: "email único, formato válido"; "cpf único, validação de formato"; "senha armazenada como hash BCrypt (implementado no back-end)"; "dataFim > dataInicio"; "convidados <= capacidade do quarto"; "Não persistir dados reais de cartão; armazenar apenas dados demonstrativos mascarados se necessário"; "Uma avaliação por reserva por usuário (constraint única em reservaId+usuarioId)".
- - [ ] T010 [P] Implementar fallback mock API para desenvolvimento offline em sdd-jp/src/services/mockApi.js (ativa quando backend indisponível)
+**Objetivo**: Configurar dados locais, scripts e infraestrutura de testes.
 
----
+- [ ] T001 Adicionar JSON Server, Vitest, jsdom e bibliotecas React Testing Library, além dos scripts `api` e `test`, em `sdd-jp/package.json` e atualizar `sdd-jp/package-lock.json`.
+- [ ] T002 Configurar Vitest e ambiente jsdom em `sdd-jp/vite.config.js` e criar `sdd-jp/src/setupTests.js`.
+- [ ] T003 Criar `db.json` na raiz com as coleções `quartos` e `reservas`, dados demonstrativos e referências consistentes conforme `specs/001-hotel-reservation-system/data-model.md`.
 
-## Phase 3: User Story 1 - Explorar Informações do Hotel (Priority: P1) 🎯 MVP
+## Fase 2: História de Usuário 1 - Consultar e cadastrar reservas (Prioridade: P1)
 
-**Goal**: Página inicial pública com banner, apresentação, galeria, catálogo de quartos e links para buscar quartos ou acessar login/cadastro
+**Objetivo**: Consultar quartos e solicitações existentes, cadastrar uma solicitação válida e apresentar erros de consulta/gravação.
 
-**Independent Test**: Carregar / (Home) exibe banner, seções de apresentação, galeria e pelo menos um RoomCard; botão de busca leva para /rooms
+**Teste independente**: Com JSON Server ativo, a página mostra quartos e solicitações; uma solicitação válida é salva e aparece uma vez. Sem a API, a página informa o erro e permite nova tentativa.
 
-- [ ] T011 [US1] Criar página Home em sdd-jp/src/pages/Home.jsx com seções: Banner, Apresentação, Galeria, Reviews destacadas e botão para /rooms (sdd-jp/src/pages/Home.jsx)
- - [ ] T012 [P] [US1] Criar componente RoomCard em sdd-jp/src/components/RoomCard.jsx que recebe props (id, nome, fotos, precoPorNoite, comodidades, capacidadeAdultos, capacidadeCriancas) e exibe foto, nome, capacidade e preço (sdd-jp/src/components/RoomCard.jsx)
- - [ ] T013 [P] [US1] Implementar função GET /rooms em sdd-jp/src/services/rooms.js: export async function fetchRooms(params) { ... } que usa services/api.js. Query params conforme contrato: dataInicio, dataFim, adults, children, category, minPrice, maxPrice (sdd-jp/src/services/rooms.js)
-- [ ] T014 [US1] Registrar rota da Home em sdd-jp/src/App.jsx e ligar Home.jsx ao layout (sdd-jp/src/App.jsx)
-- [ ] T015 [US1] Estilizar Home e RoomCard usando classes Tailwind em sdd-jp/src/index.css e sdd-jp/src/pages/Home.jsx (sdd-jp/src/index.css, sdd-jp/src/pages/Home.jsx)
+### Testes da História de Usuário 1
 
----
+Escrever e executar estes testes antes das tarefas de implementação; confirmar falhas por ausência da funcionalidade, não por erro na configuração de testes.
 
-## Phase 4: User Story 2 - Consultar Quartos e Disponibilidade (Priority: P2)
+- [ ] T004 [P] [US1] Testar `listarQuartos`, `listarReservas` e `criarReserva`, respostas válidas, HTTP não-2xx, falha de rede e corpo enviado em `sdd-jp/src/api/reservas.test.js`.
+- [ ] T005 [P] [US1] Testar carregamento/lista vazia, validação, cadastro único, nova tentativa após falha GET e preservação do formulário após falha POST em `sdd-jp/src/pages/ReservasPage.test.jsx`.
 
-**Goal**: Página de listagem de quartos com filtros (datas, hóspedes, categoria, preço) e consulta de disponibilidade ao backend
+### Implementação da História de Usuário 1
 
-**Independent Test**: Em /rooms, inserir critérios de pesquisa chama GET /rooms com query params e exibe lista filtrada de RoomCard
+- [ ] T006 [US1] Implementar `listarQuartos`, `listarReservas` e `criarReserva` com `fetch`, validação de resposta HTTP e erros tratáveis em `sdd-jp/src/api/reservas.js`.
+- [ ] T007 [P] [US1] Criar formulário acessível para hóspede, quarto, datas e quantidade de pessoas, validando obrigatoriedade, `dataFim > dataInicio` e capacidade em `sdd-jp/src/components/FormularioReserva.jsx`.
+- [ ] T008 [P] [US1] Criar a lista de solicitações com nome do hóspede, quarto, período, quantidade e estado vazio em `sdd-jp/src/components/ListaReservas.jsx`.
+- [ ] T009 [US1] Implementar carregamento paralelo de quartos/reservas, mensagens de carregamento/erro, ação de repetir consulta, envio do formulário e inclusão única da resposta em `sdd-jp/src/pages/ReservasPage.jsx`.
+- [ ] T010 [US1] Substituir a tela padrão do Vite pela página de reservas em `sdd-jp/src/App.jsx`.
+- [ ] T011 [US1] Aplicar estilos responsivos e estados visíveis de foco, erro e desabilitado em `sdd-jp/src/App.css` e `sdd-jp/src/index.css` sem adicionar biblioteca de UI.
 
- - [ ] T016 [P] [US2] Criar página Rooms em sdd-jp/src/pages/Rooms.jsx com formulário de filtros (dataInicio,dataFim,adults,children,category,minPrice,maxPrice) e área de resultados (sdd-jp/src/pages/Rooms.jsx)
- - [ ] T017 [P] [US2] Implementar função searchRooms(params) em sdd-jp/src/services/rooms.js que monta query string conforme contrato (dataInicio,dataFim,adults,children,category,minPrice,maxPrice) e retorna lista de quartos (sdd-jp/src/services/rooms.js)
-- [ ] T018 [US2] Criar página RoomDetails em sdd-jp/src/pages/RoomDetails.jsx que consome GET /rooms/{id} e exibe fotos, comodidades, capacidade e botão reservar (sdd-jp/src/pages/RoomDetails.jsx)
- - [ ] T019 [P] [US2] Implementar componente DateRangePicker em sdd-jp/src/components/DateRangePicker.jsx usado em Rooms.jsx e Booking flow (sdd-jp/src/components/DateRangePicker.jsx)
+**Checkpoint**: A história está completa quando os testes automatizados passam e o fluxo funciona contra JSON Server.
 
- - [ ] T036 [P] [US2] Teste de contrato: criar teste em tests/contract/test_rooms_contract.js que valida GET /rooms responde 200 com campos { id, nome, categoria, capacidadeAdultos, capacidadeCriancas, precoPorNoite, fotos, comodidades } quando backend disponível
+## Fase Final: Documentação e validação
 
----
+**Objetivo**: Preparar a entrega acadêmica e conferir o fluxo completo.
 
-## Phase 5: User Story 3 - Cadastro de Clientes e Login Seguro (Priority: P2)
+- [ ] T012 Atualizar o `README.md` da raiz com tema, integrantes, SpecKit, comandos de execução, caminhos dos artefatos, divisão de tarefas e reflexão, usando informações confirmadas pelo grupo.
+- [ ] T013 Executar `npm test`, `npm run lint`, `npm run build` e todos os cenários manuais de `specs/001-hotel-reservation-system/quickstart.md`; corrigir falhas antes do commit.
 
-**Goal**: Formulários de registro e login com validações (CPF, email único, senha forte) e persistência do JWT
+## Dependências e ordem de execução
 
-**Independent Test**: Um novo usuário consegue se cadastrar (POST /auth/register) e efetuar login (POST /auth/login) recebendo token armazenado em localStorage; rota privada /profile exige token
+- A Fase 1 (Preparação) deve terminar antes dos testes da história.
+- T004 e T005 podem ser escritos em paralelo; ambos devem falhar inicialmente pela ausência da feature.
+- T006 deve ser implementada antes de integrar a página; T007 e T008 podem ser desenvolvidas em paralelo após o grupo definir as props dos componentes.
+- T009 depende de T006-T008; T010 e T011 integram a página ao app e ao estilo.
+- T012-T013 fecham a documentação e a validação antes do commit desta única feature.
 
-- [ ] T020 [US3] Criar página Register em sdd-jp/src/pages/Register.jsx com validação de CPF, email e senha e chamada POST /auth/register em sdd-jp/src/services/auth.js (sdd-jp/src/pages/Register.jsx)
-- [ ] T021 [US3] Criar página Login em sdd-jp/src/pages/Login.jsx com chamada POST /auth/login e armazenamento do token em localStorage via AuthContext (sdd-jp/src/pages/Login.jsx)
- - [ ] T022 [US3] Implementar auth service em sdd-jp/src/services/auth.js com funções register, login, getCurrentUser e refresh token handling (sdd-jp/src/services/auth.js)
+## Estratégia de implementação
 
- - [ ] T037 [P] [US3] Teste de contrato: criar teste em tests/contract/test_auth_contract.js que valida POST /auth/register aceita { nome, cpf, email, telefone?, dataNascimento?, senha, acceptTerms } e POST /auth/login retorna { token, expiresIn }
+Entregar somente a História de Usuário 1 como MVP. Não iniciar autenticação, confirmação de disponibilidade, cancelamento, pagamento, avaliação ou back-end próprio.
 
----
+## Oportunidades de paralelismo
 
-## Phase 6: User Story 4 - Fluxo Completo de Reserva (Priority: P2)
-
-**Goal**: Cliente autenticado seleciona datas, hóspedes, escolhe quarto, revisa resumo financeiro e confirma reserva recebendo código de confirmação
-
-**Independent Test**: Usuário autenticado finaliza reserva e recebe resposta 201 com { id, code, status: PENDING, totalAmount }
-
-- [ ] T023 [US4] Criar página Booking em sdd-jp/src/pages/Booking.jsx que exibe resumo da reserva, cálculo simples (noites * diaria) e botão confirmar para criar reserva (sdd-jp/src/pages/Booking.jsx)
- - [ ] T024 [US4] Implementar POST /reservations em sdd-jp/src/services/reservations.js que chama /reservations com quartoId,dataInicio,dataFim,adults,children. Implementar verificação de erros 409 (conflito) e 400 (validação). Rever e aplicar as seguintes regras do data-model.md: "dataFim > dataInicio"; "convidados <= capacidade do quarto"; "conflitos evitados no back-end (verificação transacional); reservas canceladas liberam disponibilidade"; "diaria: snapshot do precoPorNoite do quarto"; "valorTotal: calculado no back-end" (sdd-jp/src/services/reservations.js)
-
- - [ ] T038 [P] [US4] Teste de contrato: criar teste em tests/contract/test_reservations_contract.js que valida POST /reservations retorna 201 com { id, codigo, status: PENDING, valorTotal, diaria, dataInicio, dataFim } e que POST conflituoso retorna 409
-- [ ] T025 [US4] Criar página BookingConfirmation em sdd-jp/src/pages/BookingConfirmation.jsx que mostra código e detalhes retornados pelo backend (sdd-jp/src/pages/BookingConfirmation.jsx)
-
----
-
-## Phase 7: User Story 5 - Área Pessoal e Gestão de Reservas (Priority: P3)
-
-**Goal**: Perfil do usuário editável e listagem de reservas com possibilidade de cancelamento conforme regras
-
-**Independent Test**: Em /profile usuário vê seus dados e em /my-bookings vê reservas; cancelar reserva muda status para CANCELLED via POST /reservations/{id}/cancel
-
-- [ ] T026 [US5] Criar página Profile em sdd-jp/src/pages/Profile.jsx para visualizar/editar nome e telefone e alterar senha via PUT /auth/me (sdd-jp/src/pages/Profile.jsx)
-- [ ] T027 [US5] Criar página MyBookings em sdd-jp/src/pages/MyBookings.jsx que lista reservas do usuário via GET /reservations e mostra ações possíveis (sdd-jp/src/pages/MyBookings.jsx)
- - [ ] T028 [US5] Implementar ação de cancelamento em sdd-jp/src/services/reservations.js com função cancelReservation(reservationId) que chama POST /reservations/{id}/cancel (sdd-jp/src/services/reservations.js)
-
----
-
-## Phase 8: User Story 6 - Processamento de Pagamento Simulado (Priority: P3)
-
-**Goal**: Processo de pagamento simulado registrando tentativas e atualizando status da reserva
-
-**Independent Test**: Em /payment enviar método e receber 201 { id, status: PENDING } e reserva atualiza para CONFIRMED/FAILED conforme simulação
-
-- [ ] T029 [US6] Criar página Payment em sdd-jp/src/pages/Payment.jsx para enviar método de pagamento e mostrar comprovante demonstrativo (sdd-jp/src/pages/Payment.jsx)
- - [ ] T030 [US6] Implementar serviço de pagamentos em sdd-jp/src/services/payments.js com funções createPayment(reservationId, method, payload) e getPayment(id) (sdd-jp/src/services/payments.js)
-
- - [ ] T039 [P] [US6] Teste de contrato: criar teste em tests/contract/test_payments_contract.js que valida POST /payments aceita { reservaId, metodo, payload? } retorna 201 { id, status: PENDING } e atualiza reserva conforme simulação
-
----
-
-## Phase 9: User Story 7 - Avaliações de Hóspedes Pós-Estadia (Priority: P3)
-
-**Goal**: Apenas clientes com estadia concluída podem avaliar; permitir criar, editar e excluir avaliações
-
-**Independent Test**: Usuário com reserva.status == COMPLETED cria avaliação (POST /reviews) e visualiza avaliações públicas; tentar avaliar sem reserva concluída retorna 403
-
-- [ ] T031 [US7] Criar componente ReviewsList em sdd-jp/src/components/ReviewsList.jsx e ReviewForm em sdd-jp/src/components/ReviewForm.jsx (sdd-jp/src/components/ReviewsList.jsx, sdd-jp/src/components/ReviewForm.jsx)
- - [ ] T032 [US7] Implementar serviço de reviews em sdd-jp/src/services/reviews.js com funções createReview, updateReview, deleteReview, fetchReviews (sdd-jp/src/services/reviews.js)
-
- - [ ] T040 [P] [US7] Teste de contrato: criar teste em tests/contract/test_reviews_contract.js que valida POST /reviews com { reservaId, avaliacao, comentario } retorna 201 quando reserva.status == COMPLETED e retorna 403 caso contrário; valida constraint única reservaId+usuarioId
-- [ ] T033 [US7] Integrar display de reviews em sdd-jp/src/pages/RoomDetails.jsx para exibir lista pública e botão de criar review quando elegível (sdd-jp/src/pages/RoomDetails.jsx)
-
----
-
-## Final Phase: Polish & Cross-Cutting Concerns
-
-- [ ] T034 [P] Atualizar quickstart e documentação de uso em specs/001-hotel-reservation-system/quickstart.md (specs/001-hotel-reservation-system/quickstart.md)
-- [ ] T035 [P] Adicionar scripts de lint/build em sdd-jp/package.json (scripts: "lint", "build", "preview") e rodar checagem de build (sdd-jp/package.json)
- - [ ] T041 [P] Implementar utilitário de formatação monetária em sdd-jp/src/utils/format.js: export function formatCurrencyPTBR(value) usando Intl.NumberFormat('pt-BR',{ style: 'currency', currency: 'BRL' }) e substituir exibições de preço em RoomCard, Booking, Payment e BookingConfirmation para usar essa função (sdd-jp/src/utils/format.js)
- - [ ] T042 [P] Implementar utilitário de formatação de datas em sdd-jp/src/utils/date.js: export function formatDatePTBR(isoDate) -> 'dd/MM/yyyy' e usar em DateRangePicker, RoomDetails, BookingConfirmation e Profile (sdd-jp/src/utils/date.js)
- - [ ] T043 [P] Implementar utilitário de CPF em sdd-jp/src/utils/cpf.js com funções maskCPF(cpfDigits) -> '000.000.000-00' e unmaskCPF(masked) -> digits; usar máscara em Register.jsx e Profile.jsx e enviar somente dígitos ao backend (sdd-jp/src/utils/cpf.js)
- - [ ] T044 [P] Garantir que os services enviem números/decimais como valores numéricos JSON (ex: 1234.56) e que a formatação para pt-BR seja aplicada somente na camada de exibição (RoomCard, Booking, Payment)
-
----
-
-## Dependencies & Execution Order
-
-- Phase 1 (Setup) -> Phase 2 (Foundational) -> Phase 3 (US1 MVP) -> Phases 4..9 (US2..US7) -> Final Phase (Polish)
-- Foundational (Phase 2) blocks all user stories; dentro de cada história, modelos -> serviços -> páginas/componentes
-
-## Parallel Execution Examples
-
-- User Story 1 parallel: T012 (RoomCard), T013 (fetchRooms), T015 (estilos) podem ser feitos em paralelo após T011 estruturar a página
-- User Story 2 parallel: T016 (Rooms page UI), T017 (searchRooms), T019 (DateRangePicker) são paralelizáveis [P]
-- Fundação parallel: T005, T006, T008, T009 são independentes e podem ser trabalhadas em paralelo quando não houver conflito de arquivos
-
-## Implementation Strategy (MVP first)
-
-1. Completar Phase 1 e Phase 2
-2. Implementar Phase 3 (US1) como MVP e validar independentemente
-3. Em seguida, implementar US2 (consulta/availability) e US3 (auth)
-4. Iterar sobre US4..US7 e finalizar com Polish
+- T004 (testes do serviço) e T005 (testes de página) usam arquivos diferentes.
+- T007 (formulário) e T008 (lista) podem ser divididas entre integrantes.
+- A integração da página, a documentação e a validação dependem das tarefas anteriores.
