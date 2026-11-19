@@ -1,0 +1,44 @@
+.alert {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  font-size: var(--fs-sm);
+}
+
+.title {
+  display: block;
+  margin-bottom: 0.15rem;
+  font-size: var(--fs-md);
+}
+
+.body {
+  color: inherit;
+}
+
+.info {
+  background: rgba(24, 61, 53, 0.06);
+  border-color: rgba(24, 61, 53, 0.15);
+  color: var(--color-primary);
+}
+
+.success {
+  background: var(--color-success-bg);
+  border-color: rgba(30, 107, 79, 0.2);
+  color: var(--color-success);
+}
+
+.warning {
+  background: var(--color-warning-bg);
+  border-color: rgba(138, 100, 23, 0.2);
+  color: var(--color-warning);
+}
+
+.danger {
+  background: var(--color-danger-bg);
+  border-color: rgba(176, 0, 32, 0.2);
+  color: var(--color-danger);
+}

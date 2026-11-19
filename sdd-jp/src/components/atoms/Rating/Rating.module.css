@@ -1,0 +1,25 @@
+.rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: var(--fs-sm);
+  color: var(--color-muted);
+}
+
+.stars {
+  color: var(--color-accent);
+  letter-spacing: 0.08em;
+}
+
+.emptyStars {
+  color: var(--color-border);
+}
+
+.value {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.total {
+  font-size: var(--fs-xs);
+}
