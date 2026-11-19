@@ -7,7 +7,7 @@ const LINKS = [
   { rotulo: 'Minhas reservas', para: '/minha-conta/reservas' },
   { rotulo: 'Meu perfil', para: '/minha-conta/perfil' },
   { rotulo: 'Pagamentos', para: '/minha-conta/reservas' },
-  { rotulo: 'Avaliações', para: '/avaliacoes' },
+  { rotulo: 'Avaliações', para: '/minha-conta/avaliacoes' },
 ]
 
 function AccountLayout() {

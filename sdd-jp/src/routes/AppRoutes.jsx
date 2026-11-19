@@ -1,8 +1,9 @@
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import PublicLayout from '../layouts/PublicLayout/PublicLayout.jsx'
 import AuthLayout from '../layouts/AuthLayout/AuthLayout.jsx'
 import AccountLayout from '../layouts/AccountLayout/AccountLayout.jsx'
 import ProtectedRoute from './ProtectedRoute.jsx'
+import { useAuth } from '../hooks/useAuth.js'
 
 import HomePage from '../pages/Home/HomePage.jsx'
 import AccommodationsPage from '../pages/Acomodacoes/AccommodationsPage.jsx'
@@ -24,6 +25,12 @@ import AccountReservations from '../pages/MinhaConta/AccountReservations.jsx'
 import ReservationDetail from '../pages/MinhaConta/ReservationDetail.jsx'
 import AccountProfile from '../pages/MinhaConta/AccountProfile.jsx'
 
+function ReviewsRoute() {
+  const { autenticado } = useAuth()
+  if (autenticado) return <Navigate to="/minha-conta/avaliacoes" replace />
+  return <ReviewsPage />
+}
+
 function AppRoutes() {
   return (
     <Routes>
@@ -40,7 +47,7 @@ function AppRoutes() {
             </ProtectedRoute>
           }
         />
-        <Route path="avaliacoes" element={<ReviewsPage />} />
+        <Route path="avaliacoes" element={<ReviewsRoute />} />
         <Route path="sobre" element={<AboutPage />} />
         <Route path="contato" element={<ContactPage />} />
         <Route
@@ -55,6 +62,7 @@ function AppRoutes() {
           <Route path="reservas" element={<AccountReservations />} />
           <Route path="reservas/:id" element={<ReservationDetail />} />
           <Route path="perfil" element={<AccountProfile />} />
+          <Route path="avaliacoes" element={<ReviewsPage />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Route>
