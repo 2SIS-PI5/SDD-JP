@@ -1,0 +1,118 @@
+.wrapper {
+  position: relative;
+}
+
+.trigger {
+  display: grid;
+  gap: 0.1rem;
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  text-align: left;
+  color: var(--color-text);
+}
+
+.trigger:hover {
+  background: rgba(24, 61, 53, 0.05);
+}
+
+.label {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--color-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.value {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.popover {
+  position: absolute;
+  z-index: var(--z-modal);
+  top: calc(100% + 0.5rem);
+  right: 0;
+  width: 20rem;
+  max-width: min(20rem, calc(100vw - 2rem));
+  padding: var(--space-md);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.linha {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.rotulo {
+  margin: 0;
+  font-weight: 600;
+  font-size: var(--fs-sm);
+  color: var(--color-primary);
+}
+
+.descricao {
+  margin: 0;
+  font-size: var(--fs-xs);
+  color: var(--color-muted);
+}
+
+.controles {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.controles button {
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-primary);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.controles button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.controles span {
+  min-width: 1.3rem;
+  text-align: center;
+  font-weight: 600;
+}
+
+.concluir {
+  margin-top: var(--space-xs);
+  padding: 0.5rem;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .popover {
+    position: fixed;
+    left: 1rem;
+    right: 1rem;
+    top: auto;
+    bottom: 1rem;
+    width: auto;
+  }
+}
