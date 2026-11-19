@@ -1,8 +1,7 @@
-import ReservasPage from './pages/ReservasPage.jsx'
-import './App.css'
+import AppRoutes from './routes/AppRoutes.jsx'
 
 function App() {
-  return <ReservasPage />
+  return <AppRoutes />
 }
 
 export default App
