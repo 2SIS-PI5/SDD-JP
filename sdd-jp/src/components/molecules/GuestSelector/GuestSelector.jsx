@@ -51,7 +51,10 @@ function GuestSelector({ adultos, criancas, quartos, onChange }) {
     }
   }, [aberto])
 
-  const total = adultos + criancas
+  const hospedes = adultos + criancas
+
+  const atualizarHospedes = (valor) => onChange({ adultos: valor, criancas: 0, quartos })
+  const atualizarQuartos = (valor) => onChange({ adultos, criancas, quartos: valor })
 
   return (
     <div className={styles.wrapper} ref={containerRef}>
@@ -62,29 +65,28 @@ function GuestSelector({ adultos, criancas, quartos, onChange }) {
         aria-haspopup="dialog"
         onClick={() => setAberto((valor) => !valor)}
       >
-        <span className={styles.label}>Hóspedes</span>
-        <span className={styles.value}>
-          {total} {total === 1 ? 'hóspede' : 'hóspedes'} · {quartos} {quartos === 1 ? 'quarto' : 'quartos'}
+        <span className={styles.campo}>
+          <span className={styles.label}>Hóspedes</span>
+          <span className={styles.value}>{hospedes}</span>
+        </span>
+        <span className={styles.separador} aria-hidden="true">
+          ·
+        </span>
+        <span className={styles.campo}>
+          <span className={styles.label}>Quartos</span>
+          <span className={styles.value}>{quartos}</span>
         </span>
       </button>
 
       {aberto && (
         <div className={styles.popover} role="dialog" aria-label="Selecionar hóspedes">
           <Contador
-            rotulo="Adultos"
-            descricao="13 anos ou mais"
-            valor={adultos}
+            rotulo="Hóspedes"
+            descricao="Total de pessoas"
+            valor={hospedes}
             minimo={1}
             maximo={8}
-            onChange={(valor) => onChange({ adultos: valor, criancas, quartos })}
-          />
-          <Contador
-            rotulo="Crianças"
-            descricao="Até 12 anos"
-            valor={criancas}
-            minimo={0}
-            maximo={6}
-            onChange={(valor) => onChange({ adultos, criancas: valor, quartos })}
+            onChange={atualizarHospedes}
           />
           <Contador
             rotulo="Quartos"
@@ -92,7 +94,7 @@ function GuestSelector({ adultos, criancas, quartos, onChange }) {
             valor={quartos}
             minimo={1}
             maximo={4}
-            onChange={(valor) => onChange({ adultos, criancas, quartos: valor })}
+            onChange={atualizarQuartos}
           />
           <button type="button" className={styles.concluir} onClick={() => setAberto(false)}>
             Concluir

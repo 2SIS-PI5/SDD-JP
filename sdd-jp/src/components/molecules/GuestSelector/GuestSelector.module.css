@@ -3,8 +3,10 @@
 }
 
 .trigger {
-  display: grid;
-  gap: 0.1rem;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: nowrap;
+  gap: 0.15rem 0.45rem;
   width: 100%;
   padding: 0.7rem 1rem;
   border: 1px solid transparent;
@@ -16,6 +18,17 @@
 
 .trigger:hover {
   background: rgba(24, 61, 53, 0.05);
+}
+
+.campo {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  white-space: nowrap;
+}
+
+.separador {
+  color: var(--color-muted);
 }
 
 .label {
