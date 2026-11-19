@@ -8,7 +8,7 @@ Este repositório atende à atividade acadêmica de SDD com SpecKit. O grupo apr
 - Linguagem: JavaScript/JSX.
 - API HTTP mock: JSON Server; `db.json` na raiz define e exemplifica o contrato de quartos e solicitações de reserva.
 - Testes: Vitest e React Testing Library para validação de componentes, formulário e chamadas de dados.
-- Esta atividade não exige back-end Spring, Oracle, MySQL, autenticação, pagamentos, avaliações ou administração do hotel.
+- Esta atividade não exige back-end Spring, Oracle, MySQL.
 
 ## 2. Comandos
 
