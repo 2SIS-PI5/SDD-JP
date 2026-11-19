@@ -1,0 +1,81 @@
+.shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.aside {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(24, 61, 53, 0.35), rgba(24, 61, 53, 0.82)),
+    url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1400&q=80')
+      center / cover no-repeat;
+  color: #fff;
+  display: flex;
+  align-items: flex-end;
+  padding: var(--space-xxl);
+}
+
+.asideContent {
+  max-width: 30rem;
+}
+
+.brand {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  color: #fff;
+}
+
+.quote {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  line-height: 1.4;
+  margin-top: var(--space-xl);
+}
+
+.note {
+  font-size: var(--fs-sm);
+  color: var(--color-accent);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-xl);
+  background: var(--color-bg);
+}
+
+.top {
+  margin-bottom: var(--space-lg);
+}
+
+.back {
+  font-size: var(--fs-sm);
+  color: var(--color-primary-600);
+}
+
+.content {
+  flex: 1;
+  display: grid;
+  place-items: center;
+}
+
+.content > * {
+  width: min(100%, 28rem);
+}
+
+@media (max-width: 900px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+
+  .aside {
+    display: none;
+  }
+
+  .main {
+    padding: var(--space-lg);
+  }
+}
