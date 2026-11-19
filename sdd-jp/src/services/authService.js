@@ -112,3 +112,14 @@ export async function solicitarRecuperacao(email) {
       'Se houver uma conta com este e-mail, um link de redefinição seria enviado. Nesta demonstração não há envio real de e-mail.',
   }
 }
+
+export async function redefinirSenhaPorEmail(email, novaSenha) {
+  const { data } = await api.get('/usuarios', { params: { email: email.trim().toLowerCase() } })
+  const usuario = data[0]
+  if (!usuario) throw new Error('Não encontramos uma conta com este e-mail.')
+
+  const salt = gerarSalt()
+  const senhaHash = await hashSenha(novaSenha, salt)
+  await api.patch(`/usuarios/${usuario.id}`, { salt, senhaHash })
+  return { mensagem: 'Senha redefinida na simulação. Você já pode entrar com a nova senha.' }
+}
